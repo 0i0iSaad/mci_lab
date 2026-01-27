@@ -97,6 +97,14 @@ void display_number(uint8_t num)
     }
 }
 
+/* USER CODE BEGIN PV */
+uint8_t student_id[] = {1, 0, 5, 7, 5};
+uint8_t id_index = 0;
+uint8_t button_state = 0;
+uint8_t last_button_state = 0;
+/* USER CODE END PV */
+
+
 /* USER CODE END 0 */
 
 /**
@@ -146,11 +154,37 @@ int main(void)
         display_number(i);
         HAL_Delay(2000); // 2 seconds
     }
+ 
+    button_state = HAL_GPIO_ReadPin(GPIOA, B1_Pin);
+
+    // Detect rising edge (button press)
+    if (button_state == GPIO_PIN_SET && last_button_state == GPIO_PIN_RESET)
+    {
+        HAL_Delay(50); // debounce delay
+
+        // Confirm button is still pressed
+        if (HAL_GPIO_ReadPin(GPIOA, B1_Pin) == GPIO_PIN_SET)
+        {
+            display_number(student_id[id_index]);
+            id_index++;
+
+            // Wrap around after last digit
+            if (id_index >= sizeof(student_id))
+            {
+                id_index = 0;
+            }
+        }
+    }
+
+    last_button_state = button_state;
+}
+/* USER CODE END WHILE */
+
 }
 /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  }
+  
   /* USER CODE END 3 */
 
 
