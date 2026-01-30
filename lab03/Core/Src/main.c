@@ -218,7 +218,7 @@ int main(void)
                 display_number(counter);
             }
         }
-        // ext_btn_last = ext_btn_state;
+        ext_btn_last = ext_btn_state;
 
         //Task 4
         for (uint8_t i = 0; i < 5; i++){
