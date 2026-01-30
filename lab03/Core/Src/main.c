@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "stdlib.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -154,13 +155,14 @@ int main(void)
         /* USER CODE END WHILE */
 
         /* USER CODE BEGIN 3 */
+
         // Task 1
         for (uint8_t i = 0; i < 16; i++){
             display_number(i);
             HAL_Delay(2000); // 2 seconds
         }
 
-        // Task 2
+        // // Task 2
         button_state = HAL_GPIO_ReadPin(GPIOA, B1_Pin);
 
         if (button_state == GPIO_PIN_SET && last_button_state == GPIO_PIN_RESET)
@@ -179,7 +181,7 @@ int main(void)
             }
         }
 
-        last_button_state = button_state;
+        // last_button_state = button_state;
 
         // Task 3
         user_btn_state = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0);
@@ -216,7 +218,14 @@ int main(void)
                 display_number(counter);
             }
         }
-        ext_btn_last = ext_btn_state;
+        // ext_btn_last = ext_btn_state;
+
+        //Task 4
+        for (uint8_t i = 0; i < 5; i++){
+            int random_num = (rand() % 6) + 1;
+            display_number(random_num);
+            HAL_Delay(2000); // 2 seconds
+        }
 
         /* USER CODE END WHILE */
 
