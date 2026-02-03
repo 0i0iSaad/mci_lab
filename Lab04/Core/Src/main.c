@@ -18,6 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+volatile uint32_t countA = 0;
+volatile uint32_t countB = 0;
+volatile uint32_t countC = 0;
+
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -65,6 +69,8 @@ static void MX_USB_PCD_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+//Task 1
 //   void delay_ms(uint32_t ms)
 // {
 //     __HAL_TIM_SET_COUNTER(&htim2, 0);
@@ -227,6 +233,13 @@ static void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 2 */
 
+
+  /* USER CODE BEGIN SPI1_Init 0 */
+
+  /* USER CODE END SPI1_Init 0 */
+
+  /* USER CODE BEGIN SPI1_Init 1 */
+
 }
 
 /**
@@ -265,13 +278,9 @@ static void MX_SPI1_Init(void)
   }
   /* USER CODE BEGIN SPI1_Init 2 */
 
-  /* USER CODE END SPI1_Init 2 */void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
-  if (htim -> Instance == TIM2) {
-    HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
-  } 
+  /* USER CODE END SPI1_Init 2 */
 }
 
-}
 
 /**
   * @brief TIM2 Initialization Function
@@ -292,9 +301,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 65535;
+  htim2.Init.Prescaler = 47;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 731;
+  htim2.Init.Period = 999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -319,9 +328,33 @@ static void MX_TIM2_Init(void)
 }
 
   //task 2
+  // void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
+  //   if (htim -> Instance == TIM2) {
+  //     HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
+  //   } 
+  // }
+
+  //Task 3
   void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
     if (htim -> Instance == TIM2) {
-      HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
+      countA++;
+      countB++;
+      countC++;
+
+      if(countA >= 500u){
+        HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
+        countA = 0;
+      }
+
+      if(countB >= 200u){
+        HAL_GPIO_TogglePin (LD4_GPIO_Port , LD4_Pin);
+        countB = 0;
+      }
+
+      if(countC >= 100u){
+        HAL_GPIO_TogglePin (LD5_GPIO_Port , LD5_Pin);
+        countC = 0;
+      }
     } 
   }
 /**
