@@ -66,14 +66,14 @@ static void MX_USB_PCD_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-  void delay_ms(uint32_t ms)
-{
-    __HAL_TIM_SET_COUNTER(&htim2, 0);
-    HAL_TIM_Base_Start(&htim2);
-    while (__HAL_TIM_GET_COUNTER(&htim2) < ms);
+//   void delay_ms(uint32_t ms)
+// {
+//     __HAL_TIM_SET_COUNTER(&htim2, 0);
+//     HAL_TIM_Base_Start(&htim2);
+//     while (__HAL_TIM_GET_COUNTER(&htim2) < ms);
 
-    HAL_TIM_Base_Stop(&htim2);
-}
+//     HAL_TIM_Base_Stop(&htim2);
+// }
 
 /* USER CODE END 0 */
 
@@ -116,14 +116,14 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  __HAL_TIM_SET_COUNTER(&htim2, 0);
-  HAL_TIM_Base_Start(&htim2);
-  HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+  // __HAL_TIM_SET_COUNTER(&htim2, 0);
+  // HAL_TIM_Base_Start(&htim2);
+  // HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
   while (1)
   {
     /* USER CODE END WHILE */
-    HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);  // Toggle LED
-    delay_ms(500);  
+    // HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);  // Toggle LED
+    // delay_ms(1000);  
 
     /* USER CODE BEGIN 3 */
   }
