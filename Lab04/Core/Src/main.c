@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stm32f3xx_hal_gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -75,6 +74,8 @@ static void MX_USB_PCD_Init(void);
 //     HAL_TIM_Base_Stop(&htim2);
 // }
 
+
+
 /* USER CODE END 0 */
 
 /**
@@ -119,11 +120,13 @@ int main(void)
   // __HAL_TIM_SET_COUNTER(&htim2, 0);
   // HAL_TIM_Base_Start(&htim2);
   // HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+
+  //Task 2
+  HAL_TIM_Base_Start_IT(&htim2);
   while (1)
   {
+    //Task 1
     /* USER CODE END WHILE */
-    // HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);  // Toggle LED
-    // delay_ms(1000);  
 
     /* USER CODE BEGIN 3 */
   }
@@ -262,7 +265,11 @@ static void MX_SPI1_Init(void)
   }
   /* USER CODE BEGIN SPI1_Init 2 */
 
-  /* USER CODE END SPI1_Init 2 */
+  /* USER CODE END SPI1_Init 2 */void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
+  if (htim -> Instance == TIM2) {
+    HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
+  } 
+}
 
 }
 
@@ -311,6 +318,12 @@ static void MX_TIM2_Init(void)
 
 }
 
+  //task 2
+  void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
+    if (htim -> Instance == TIM2) {
+      HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
+    } 
+  }
 /**
   * @brief USB Initialization Function
   * @param None
