@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stdio.h"
+volatile uint8_t data_ready = 0;
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -144,7 +145,12 @@ int main(void)
   {
     //Task 1
     /* USER CODE END WHILE */
-
+    if (data_ready) {
+        frequency = 1000000.0f / (float)period;
+        int len = sprintf(buffer, "Freq: %.2f Hz\r\n", frequency);
+        HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 100);
+        data_ready = 0; // Reset flag
+    }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -325,22 +331,19 @@ static void MX_SPI1_Init(void)
 
   //Task 4
   void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-    if (htim->Instance == TIM3 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_3) {
+    if (htim->Instance == TIM3) {
         uint32_t current_capture = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_3);
+        
         if (current_capture >= last_capture) {
             period = current_capture - last_capture;
         } else {
-            period = (htim->Init.Period - last_capture) + current_capture + 1;
+            period = (65535 - last_capture) + current_capture + 1;
         }
+        
         last_capture = current_capture;
-
-        if (period != 0) {
-            frequency = 1000000.0f / (float)period; // frequency in Hz
-            int len = sprintf(buffer, "Frequency: %.2f Hz\r\n", frequency);
-            HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 10);
-        }
+        data_ready = 1;
     }
-  }
+}
 
 /**
   * @brief TIM2 Initialization Function

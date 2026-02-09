@@ -4161,7 +4161,7 @@ LOAD /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-
                 0x08000000                g_pfnVectors
                 0x08000188                        . = ALIGN (0x4)
 
-.text           0x08000190     0x54d8
+.text           0x08000190     0x54e4
                 0x08000190                        . = ALIGN (0x4)
  *(.text)
  .text          0x08000190       0x40 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
@@ -4366,317 +4366,316 @@ LOAD /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-
  .text.HAL_PCD_Init
                 0x08004136      0x18e cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd.c.obj
                 0x08004136                HAL_PCD_Init
- .text.main     0x080042c4       0x38 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+ .text.main     0x080042c4       0xa4 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
                 0x080042c4                main
  .text.SystemClock_Config
-                0x080042fc       0xc8 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x080042fc                SystemClock_Config
+                0x08004368       0xc8 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x08004368                SystemClock_Config
  .text.MX_I2C1_Init
-                0x080043c4       0x80 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x08004430       0x80 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
  .text.MX_SPI1_Init
-                0x08004444       0x7c CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x080044b0       0x7c CMakeFiles/Lab04.dir/Core/Src/main.c.obj
  .text.HAL_TIM_IC_CaptureCallback
-                0x080044c0       0xc8 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x080044c0                HAL_TIM_IC_CaptureCallback
+                0x0800452c       0x68 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x0800452c                HAL_TIM_IC_CaptureCallback
  .text.MX_TIM2_Init
-                0x08004588       0x9c CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x08004594       0x9c CMakeFiles/Lab04.dir/Core/Src/main.c.obj
  .text.MX_TIM3_Init
-                0x08004624       0xa8 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x08004630       0xa8 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
  .text.MX_USART2_UART_Init
-                0x080046cc       0x60 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x080046d8       0x60 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
  .text.MX_USB_PCD_Init
-                0x0800472c       0x44 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x08004738       0x44 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
  .text.MX_GPIO_Init
-                0x08004770       0xfc CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x0800477c       0xfc CMakeFiles/Lab04.dir/Core/Src/main.c.obj
  .text.Error_Handler
-                0x0800486c        0xc CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x0800486c                Error_Handler
+                0x08004878        0xc CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x08004878                Error_Handler
  .text.NMI_Handler
-                0x08004878        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x08004878                NMI_Handler
+                0x08004884        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x08004884                NMI_Handler
  .text.HardFault_Handler
-                0x08004880        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x08004880                HardFault_Handler
+                0x0800488c        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x0800488c                HardFault_Handler
  .text.MemManage_Handler
-                0x08004888        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x08004888                MemManage_Handler
+                0x08004894        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x08004894                MemManage_Handler
  .text.BusFault_Handler
-                0x08004890        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x08004890                BusFault_Handler
+                0x0800489c        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x0800489c                BusFault_Handler
  .text.UsageFault_Handler
-                0x08004898        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x08004898                UsageFault_Handler
+                0x080048a4        0x8 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x080048a4                UsageFault_Handler
  .text.SVC_Handler
-                0x080048a0        0xe CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x080048a0                SVC_Handler
+                0x080048ac        0xe CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x080048ac                SVC_Handler
  .text.DebugMon_Handler
-                0x080048ae        0xe CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x080048ae                DebugMon_Handler
+                0x080048ba        0xe CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x080048ba                DebugMon_Handler
  .text.PendSV_Handler
-                0x080048bc        0xe CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x080048bc                PendSV_Handler
+                0x080048c8        0xe CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x080048c8                PendSV_Handler
  .text.SysTick_Handler
-                0x080048ca        0xc CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x080048ca                SysTick_Handler
- *fill*         0x080048d6        0x2 
+                0x080048d6        0xc CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x080048d6                SysTick_Handler
+ *fill*         0x080048e2        0x2 
  .text.TIM2_IRQHandler
-                0x080048d8       0x14 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x080048d8                TIM2_IRQHandler
+                0x080048e4       0x14 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x080048e4                TIM2_IRQHandler
  .text.TIM3_IRQHandler
-                0x080048ec       0x14 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
-                0x080048ec                TIM3_IRQHandler
+                0x080048f8       0x14 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+                0x080048f8                TIM3_IRQHandler
  .text.HAL_MspInit
-                0x08004900       0x48 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
-                0x08004900                HAL_MspInit
+                0x0800490c       0x48 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+                0x0800490c                HAL_MspInit
  .text.HAL_I2C_MspInit
-                0x08004948       0x88 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
-                0x08004948                HAL_I2C_MspInit
+                0x08004954       0x88 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+                0x08004954                HAL_I2C_MspInit
  .text.HAL_SPI_MspInit
-                0x080049d0       0x84 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
-                0x080049d0                HAL_SPI_MspInit
+                0x080049dc       0x84 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+                0x080049dc                HAL_SPI_MspInit
  .text.HAL_TIM_Base_MspInit
-                0x08004a54       0x48 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
-                0x08004a54                HAL_TIM_Base_MspInit
+                0x08004a60       0x48 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+                0x08004a60                HAL_TIM_Base_MspInit
  .text.HAL_TIM_IC_MspInit
-                0x08004a9c       0x98 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
-                0x08004a9c                HAL_TIM_IC_MspInit
+                0x08004aa8       0x98 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+                0x08004aa8                HAL_TIM_IC_MspInit
  .text.HAL_UART_MspInit
-                0x08004b34       0x84 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
-                0x08004b34                HAL_UART_MspInit
+                0x08004b40       0x84 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+                0x08004b40                HAL_UART_MspInit
  .text.HAL_PCD_MspInit
-                0x08004bb8       0x88 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
-                0x08004bb8                HAL_PCD_MspInit
- .text._sbrk    0x08004c40       0x6c CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
-                0x08004c40                _sbrk
+                0x08004bc4       0x88 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+                0x08004bc4                HAL_PCD_MspInit
+ .text._sbrk    0x08004c4c       0x6c CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
+                0x08004c4c                _sbrk
  .text.Reset_Handler
-                0x08004cac       0x50 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
-                0x08004cac                Reset_Handler
+                0x08004cb8       0x50 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
+                0x08004cb8                Reset_Handler
  .text.Default_Handler
-                0x08004cfc        0x2 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
-                0x08004cfc                RTC_Alarm_IRQHandler
-                0x08004cfc                TIM8_TRG_COM_IRQHandler
-                0x08004cfc                TIM8_CC_IRQHandler
-                0x08004cfc                TIM1_CC_IRQHandler
-                0x08004cfc                USB_HP_IRQHandler
-                0x08004cfc                PVD_IRQHandler
-                0x08004cfc                TAMP_STAMP_IRQHandler
-                0x08004cfc                EXTI3_IRQHandler
-                0x08004cfc                USB_HP_CAN_TX_IRQHandler
-                0x08004cfc                EXTI0_IRQHandler
-                0x08004cfc                I2C2_EV_IRQHandler
-                0x08004cfc                FPU_IRQHandler
-                0x08004cfc                TIM1_UP_TIM16_IRQHandler
-                0x08004cfc                ADC1_2_IRQHandler
-                0x08004cfc                SPI1_IRQHandler
-                0x08004cfc                CAN_SCE_IRQHandler
-                0x08004cfc                TIM6_DAC_IRQHandler
-                0x08004cfc                TIM8_UP_IRQHandler
-                0x08004cfc                DMA2_Channel2_IRQHandler
-                0x08004cfc                DMA1_Channel4_IRQHandler
-                0x08004cfc                USART3_IRQHandler
-                0x08004cfc                DMA1_Channel7_IRQHandler
-                0x08004cfc                UART5_IRQHandler
-                0x08004cfc                ADC3_IRQHandler
-                0x08004cfc                TIM4_IRQHandler
-                0x08004cfc                CAN_RX1_IRQHandler
-                0x08004cfc                DMA2_Channel1_IRQHandler
-                0x08004cfc                I2C1_EV_IRQHandler
-                0x08004cfc                DMA1_Channel6_IRQHandler
-                0x08004cfc                UART4_IRQHandler
-                0x08004cfc                DMA2_Channel4_IRQHandler
-                0x08004cfc                RCC_IRQHandler
-                0x08004cfc                DMA1_Channel1_IRQHandler
-                0x08004cfc                Default_Handler
-                0x08004cfc                USBWakeUp_RMP_IRQHandler
-                0x08004cfc                EXTI15_10_IRQHandler
-                0x08004cfc                TIM7_IRQHandler
-                0x08004cfc                EXTI9_5_IRQHandler
-                0x08004cfc                RTC_WKUP_IRQHandler
-                0x08004cfc                SPI2_IRQHandler
-                0x08004cfc                USB_LP_CAN_RX0_IRQHandler
-                0x08004cfc                DMA2_Channel5_IRQHandler
-                0x08004cfc                DMA1_Channel5_IRQHandler
-                0x08004cfc                USB_LP_IRQHandler
-                0x08004cfc                EXTI4_IRQHandler
-                0x08004cfc                TIM1_TRG_COM_TIM17_IRQHandler
-                0x08004cfc                DMA1_Channel3_IRQHandler
-                0x08004cfc                ADC4_IRQHandler
-                0x08004cfc                WWDG_IRQHandler
-                0x08004cfc                COMP7_IRQHandler
-                0x08004cfc                COMP1_2_3_IRQHandler
-                0x08004cfc                EXTI1_IRQHandler
-                0x08004cfc                USART2_IRQHandler
-                0x08004cfc                COMP4_5_6_IRQHandler
-                0x08004cfc                I2C2_ER_IRQHandler
-                0x08004cfc                DMA1_Channel2_IRQHandler
-                0x08004cfc                TIM8_BRK_IRQHandler
-                0x08004cfc                FLASH_IRQHandler
-                0x08004cfc                USART1_IRQHandler
-                0x08004cfc                SPI3_IRQHandler
-                0x08004cfc                I2C1_ER_IRQHandler
-                0x08004cfc                USBWakeUp_IRQHandler
-                0x08004cfc                DMA2_Channel3_IRQHandler
-                0x08004cfc                EXTI2_TSC_IRQHandler
-                0x08004cfc                TIM1_BRK_TIM15_IRQHandler
- *fill*         0x08004cfe        0x2 
- .text.sprintf  0x08004d00       0x44 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
-                0x08004d00                sprintf
-                0x08004d00                siprintf
- .text.memset   0x08004d44       0x10 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
-                0x08004d44                memset
- .text.__errno  0x08004d54        0xc /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
-                0x08004d54                __errno
+                0x08004d08        0x2 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
+                0x08004d08                RTC_Alarm_IRQHandler
+                0x08004d08                TIM8_TRG_COM_IRQHandler
+                0x08004d08                TIM8_CC_IRQHandler
+                0x08004d08                TIM1_CC_IRQHandler
+                0x08004d08                USB_HP_IRQHandler
+                0x08004d08                PVD_IRQHandler
+                0x08004d08                TAMP_STAMP_IRQHandler
+                0x08004d08                EXTI3_IRQHandler
+                0x08004d08                USB_HP_CAN_TX_IRQHandler
+                0x08004d08                EXTI0_IRQHandler
+                0x08004d08                I2C2_EV_IRQHandler
+                0x08004d08                FPU_IRQHandler
+                0x08004d08                TIM1_UP_TIM16_IRQHandler
+                0x08004d08                ADC1_2_IRQHandler
+                0x08004d08                SPI1_IRQHandler
+                0x08004d08                CAN_SCE_IRQHandler
+                0x08004d08                TIM6_DAC_IRQHandler
+                0x08004d08                TIM8_UP_IRQHandler
+                0x08004d08                DMA2_Channel2_IRQHandler
+                0x08004d08                DMA1_Channel4_IRQHandler
+                0x08004d08                USART3_IRQHandler
+                0x08004d08                DMA1_Channel7_IRQHandler
+                0x08004d08                UART5_IRQHandler
+                0x08004d08                ADC3_IRQHandler
+                0x08004d08                TIM4_IRQHandler
+                0x08004d08                CAN_RX1_IRQHandler
+                0x08004d08                DMA2_Channel1_IRQHandler
+                0x08004d08                I2C1_EV_IRQHandler
+                0x08004d08                DMA1_Channel6_IRQHandler
+                0x08004d08                UART4_IRQHandler
+                0x08004d08                DMA2_Channel4_IRQHandler
+                0x08004d08                RCC_IRQHandler
+                0x08004d08                DMA1_Channel1_IRQHandler
+                0x08004d08                Default_Handler
+                0x08004d08                USBWakeUp_RMP_IRQHandler
+                0x08004d08                EXTI15_10_IRQHandler
+                0x08004d08                TIM7_IRQHandler
+                0x08004d08                EXTI9_5_IRQHandler
+                0x08004d08                RTC_WKUP_IRQHandler
+                0x08004d08                SPI2_IRQHandler
+                0x08004d08                USB_LP_CAN_RX0_IRQHandler
+                0x08004d08                DMA2_Channel5_IRQHandler
+                0x08004d08                DMA1_Channel5_IRQHandler
+                0x08004d08                USB_LP_IRQHandler
+                0x08004d08                EXTI4_IRQHandler
+                0x08004d08                TIM1_TRG_COM_TIM17_IRQHandler
+                0x08004d08                DMA1_Channel3_IRQHandler
+                0x08004d08                ADC4_IRQHandler
+                0x08004d08                WWDG_IRQHandler
+                0x08004d08                COMP7_IRQHandler
+                0x08004d08                COMP1_2_3_IRQHandler
+                0x08004d08                EXTI1_IRQHandler
+                0x08004d08                USART2_IRQHandler
+                0x08004d08                COMP4_5_6_IRQHandler
+                0x08004d08                I2C2_ER_IRQHandler
+                0x08004d08                DMA1_Channel2_IRQHandler
+                0x08004d08                TIM8_BRK_IRQHandler
+                0x08004d08                FLASH_IRQHandler
+                0x08004d08                USART1_IRQHandler
+                0x08004d08                SPI3_IRQHandler
+                0x08004d08                I2C1_ER_IRQHandler
+                0x08004d08                USBWakeUp_IRQHandler
+                0x08004d08                DMA2_Channel3_IRQHandler
+                0x08004d08                EXTI2_TSC_IRQHandler
+                0x08004d08                TIM1_BRK_TIM15_IRQHandler
+ *fill*         0x08004d0a        0x2 
+ .text.sprintf  0x08004d0c       0x44 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
+                0x08004d0c                sprintf
+                0x08004d0c                siprintf
+ .text.memset   0x08004d50       0x10 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
+                0x08004d50                memset
+ .text.__errno  0x08004d60        0xc /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
+                0x08004d60                __errno
  .text.__libc_init_array
-                0x08004d60       0x48 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
-                0x08004d60                __libc_init_array
+                0x08004d6c       0x48 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
+                0x08004d6c                __libc_init_array
  .text.__retarget_lock_acquire_recursive
-                0x08004da8        0x2 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
-                0x08004da8                __retarget_lock_acquire_recursive
+                0x08004db4        0x2 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
+                0x08004db4                __retarget_lock_acquire_recursive
  .text.__retarget_lock_release_recursive
-                0x08004daa        0x2 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
-                0x08004daa                __retarget_lock_release_recursive
- .text._free_r  0x08004dac       0x94 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
-                0x08004dac                _free_r
+                0x08004db6        0x2 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
+                0x08004db6                __retarget_lock_release_recursive
+ .text._free_r  0x08004db8       0x94 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
+                0x08004db8                _free_r
  .text.sbrk_aligned
-                0x08004e40       0x44 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
+                0x08004e4c       0x44 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
  .text._malloc_r
-                0x08004e84      0x100 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
-                0x08004e84                _malloc_r
+                0x08004e90      0x100 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
+                0x08004e90                _malloc_r
  .text.__malloc_lock
-                0x08004f84        0xc /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
-                0x08004f84                __malloc_lock
- .text.__malloc_unlock
                 0x08004f90        0xc /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
-                0x08004f90                __malloc_unlock
+                0x08004f90                __malloc_lock
+ .text.__malloc_unlock
+                0x08004f9c        0xc /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
+                0x08004f9c                __malloc_unlock
  .text.__ssputs_r
-                0x08004f9c       0xc0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
-                0x08004f9c                __ssputs_r
+                0x08004fa8       0xc0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
+                0x08004fa8                __ssputs_r
  .text._svfprintf_r
-                0x0800505c      0x1f0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
-                0x0800505c                _svfprintf_r
-                0x0800505c                _svfiprintf_r
+                0x08005068      0x1f0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
+                0x08005068                _svfprintf_r
+                0x08005068                _svfiprintf_r
  .text._printf_common
-                0x0800524c       0xda /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
-                0x0800524c                _printf_common
- *fill*         0x08005326        0x2 
+                0x08005258       0xda /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
+                0x08005258                _printf_common
+ *fill*         0x08005332        0x2 
  .text._printf_i
-                0x08005328      0x24c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
-                0x08005328                _printf_i
- .text.memmove  0x08005574       0x32 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
-                0x08005574                memmove
- *fill*         0x080055a6        0x2 
- .text._sbrk_r  0x080055a8       0x20 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
-                0x080055a8                _sbrk_r
- .text.memcpy   0x080055c8       0x1c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
-                0x080055c8                memcpy
+                0x08005334      0x24c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
+                0x08005334                _printf_i
+ .text.memmove  0x08005580       0x32 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
+                0x08005580                memmove
+ *fill*         0x080055b2        0x2 
+ .text._sbrk_r  0x080055b4       0x20 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
+                0x080055b4                _sbrk_r
+ .text.memcpy   0x080055d4       0x1c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
+                0x080055d4                memcpy
  .text._realloc_r
-                0x080055e4       0x5c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
-                0x080055e4                _realloc_r
+                0x080055f0       0x5c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
+                0x080055f0                _realloc_r
  .text._malloc_usable_size_r
-                0x08005640       0x10 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
-                0x08005640                _malloc_usable_size_r
+                0x0800564c       0x10 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
+                0x0800564c                _malloc_usable_size_r
  *(.glue_7)
- .glue_7        0x08005650        0x0 linker stubs
+ .glue_7        0x0800565c        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x08005650        0x0 linker stubs
+ .glue_7t       0x0800565c        0x0 linker stubs
  *(.eh_frame)
- .eh_frame      0x08005650        0x0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .eh_frame      0x0800565c        0x0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.init)
- .init          0x08005650        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crti.o
-                0x08005650                _init
- .init          0x08005654        0x8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtn.o
+ .init          0x0800565c        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crti.o
+                0x0800565c                _init
+ .init          0x08005660        0x8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtn.o
  *(.fini)
- .fini          0x0800565c        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crti.o
-                0x0800565c                _fini
- .fini          0x08005660        0x8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtn.o
-                0x08005668                        . = ALIGN (0x4)
-                0x08005668                        _etext = .
+ .fini          0x08005668        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crti.o
+                0x08005668                _fini
+ .fini          0x0800566c        0x8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtn.o
+                0x08005674                        . = ALIGN (0x4)
+                0x08005674                        _etext = .
 
-.vfp11_veneer   0x08005668        0x0
- .vfp11_veneer  0x08005668        0x0 linker stubs
+.vfp11_veneer   0x08005674        0x0
+ .vfp11_veneer  0x08005674        0x0 linker stubs
 
-.v4_bx          0x08005668        0x0
- .v4_bx         0x08005668        0x0 linker stubs
+.v4_bx          0x08005674        0x0
+ .v4_bx         0x08005674        0x0 linker stubs
 
-.iplt           0x08005668        0x0
- .iplt          0x08005668        0x0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+.iplt           0x08005674        0x0
+ .iplt          0x08005674        0x0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.rodata         0x08005668       0x84
-                0x08005668                        . = ALIGN (0x4)
+.rodata         0x08005674       0x7c
+                0x08005674                        . = ALIGN (0x4)
  *(.rodata)
- .rodata        0x08005668       0x15 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+ .rodata        0x08005674       0x10 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
  *(.rodata*)
- *fill*         0x0800567d        0x3 
  .rodata.AHBPrescTable
-                0x08005680       0x10 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
-                0x08005680                AHBPrescTable
+                0x08005684       0x10 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
+                0x08005684                AHBPrescTable
  .rodata.APBPrescTable
-                0x08005690        0x8 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
-                0x08005690                APBPrescTable
+                0x08005694        0x8 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
+                0x08005694                APBPrescTable
  .rodata.aPLLMULFactorTable
-                0x08005698       0x10 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c.obj
+                0x0800569c       0x10 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c.obj
  .rodata.aPredivFactorTable
-                0x080056a8       0x10 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c.obj
+                0x080056ac       0x10 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c.obj
  .rodata._svfprintf_r.str1.1
-                0x080056b8       0x33 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
+                0x080056bc       0x33 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
                                  0x11 (size before relaxing)
  .rodata._printf_i.str1.1
-                0x080056eb       0x22 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
-                0x08005710                        . = ALIGN (0x4)
- *fill*         0x080056eb        0x1 
+                0x080056ef       0x22 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
+                0x08005714                        . = ALIGN (0x4)
+ *fill*         0x080056ef        0x1 
 
-.ARM.extab      0x080056ec        0x0
-                0x080056ec                        . = ALIGN (0x4)
+.ARM.extab      0x080056f0        0x0
+                0x080056f0                        . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x080056ec                        . = ALIGN (0x4)
+                0x080056f0                        . = ALIGN (0x4)
 
-.ARM            0x080056ec        0x8
-                0x080056ec                        . = ALIGN (0x4)
-                0x080056ec                        __exidx_start = .
+.ARM            0x080056f0        0x8
+                0x080056f0                        . = ALIGN (0x4)
+                0x080056f0                        __exidx_start = .
  *(.ARM.exidx*)
- .ARM.exidx     0x080056ec        0x8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
-                0x080056f4                        __exidx_end = .
-                0x080056f4                        . = ALIGN (0x4)
+ .ARM.exidx     0x080056f0        0x8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
+                0x080056f8                        __exidx_end = .
+                0x080056f8                        . = ALIGN (0x4)
 
-.preinit_array  0x080056f4        0x0
-                0x080056f4                        . = ALIGN (0x4)
-                0x080056f4                        PROVIDE (__preinit_array_start = .)
+.preinit_array  0x080056f8        0x0
+                0x080056f8                        . = ALIGN (0x4)
+                0x080056f8                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x080056f4                        PROVIDE (__preinit_array_end = .)
-                0x080056f4                        . = ALIGN (0x4)
+                0x080056f8                        PROVIDE (__preinit_array_end = .)
+                0x080056f8                        . = ALIGN (0x4)
 
-.init_array     0x080056f4        0x4
-                0x080056f4                        . = ALIGN (0x4)
-                0x080056f4                        PROVIDE (__init_array_start = .)
+.init_array     0x080056f8        0x4
+                0x080056f8                        . = ALIGN (0x4)
+                0x080056f8                        PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x080056f4        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
-                0x080056f8                        PROVIDE (__init_array_end = .)
-                0x080056f8                        . = ALIGN (0x4)
+ .init_array    0x080056f8        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+                0x080056fc                        PROVIDE (__init_array_end = .)
+                0x080056fc                        . = ALIGN (0x4)
 
-.fini_array     0x080056f8        0x4
-                0x080056f8                        . = ALIGN (0x4)
+.fini_array     0x080056fc        0x4
+                0x080056fc                        . = ALIGN (0x4)
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x080056f8        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+ .fini_array    0x080056fc        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
-                0x080056fc                        . = ALIGN (0x4)
-                0x080056fc                        _siccmram = LOADADDR (.ccmram)
+                0x08005700                        . = ALIGN (0x4)
+                0x08005700                        _siccmram = LOADADDR (.ccmram)
 
-.rel.dyn        0x080056fc        0x0
- .rel.iplt      0x080056fc        0x0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
+.rel.dyn        0x08005700        0x0
+ .rel.iplt      0x08005700        0x0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.ccmram         0x10000000        0x0 load address 0x080056fc
+.ccmram         0x10000000        0x0 load address 0x08005700
                 0x10000000                        . = ALIGN (0x4)
                 0x10000000                        _sccmram = .
  *(.ccmram)
  *(.ccmram*)
                 0x10000000                        . = ALIGN (0x4)
                 0x10000000                        _eccmram = .
-                0x080056fc                        _sidata = LOADADDR (.data)
+                0x08005700                        _sidata = LOADADDR (.data)
 
-.data           0x20000000       0x5c load address 0x080056fc
+.data           0x20000000       0x5c load address 0x08005700
                 0x20000000                        . = ALIGN (0x4)
                 0x20000000                        _sdata = .
  *(.data)
@@ -4701,10 +4700,10 @@ LOAD /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-
  *(.RamFunc*)
                 0x2000005c                        . = ALIGN (0x4)
 
-.igot.plt       0x2000005c        0x0 load address 0x08005758
+.igot.plt       0x2000005c        0x0 load address 0x0800575c
  .igot.plt      0x2000005c        0x0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 
-.tdata          0x2000005c        0x0 load address 0x08005758
+.tdata          0x2000005c        0x0 load address 0x0800575c
  *(.tdata .tdata.* .gnu.linkonce.td.*)
                 0x2000005c                        . = ALIGN (0x4)
                 0x2000005c                        _edata = .
@@ -4721,7 +4720,7 @@ LOAD /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-
                 [!provide]                        PROVIDE (__data_source_end = __tdata_source_end)
                 [!provide]                        PROVIDE (__data_source_size = (__data_source_end - __data_source))
 
-.tbss           0x2000005c        0x0 load address 0x08005758
+.tbss           0x2000005c        0x0 load address 0x0800575c
                 0x2000005c                        _sbss = .
                 0x2000005c                        __bss_start__ = _sbss
  *(.tbss .tbss.*)
@@ -4738,65 +4737,68 @@ LOAD /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-
                 [!provide]                        PROVIDE (__arm32_tls_tcb_offset = MAX (0x8, __tls_align))
                 [!provide]                        PROVIDE (__arm64_tls_tcb_offset = MAX (0x10, __tls_align))
 
-.bss            0x2000005c      0x658 load address 0x08005758
+.bss            0x2000005c      0x65c load address 0x0800575c
  *(.bss)
  .bss           0x2000005c       0x1c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/crtbegin.o
  *(.bss*)
  .bss.uwTick    0x20000078        0x4 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c.obj
                 0x20000078                uwTick
- .bss.hi2c1     0x2000007c       0x54 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x2000007c                hi2c1
- .bss.hspi1     0x200000d0       0x64 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x200000d0                hspi1
- .bss.htim2     0x20000134       0x4c CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x20000134                htim2
- .bss.htim3     0x20000180       0x4c CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x20000180                htim3
- .bss.huart2    0x200001cc       0x88 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x200001cc                huart2
+ .bss.data_ready
+                0x2000007c        0x1 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x2000007c                data_ready
+ *fill*         0x2000007d        0x3 
+ .bss.hi2c1     0x20000080       0x54 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x20000080                hi2c1
+ .bss.hspi1     0x200000d4       0x64 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x200000d4                hspi1
+ .bss.htim2     0x20000138       0x4c CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x20000138                htim2
+ .bss.htim3     0x20000184       0x4c CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x20000184                htim3
+ .bss.huart2    0x200001d0       0x88 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x200001d0                huart2
  .bss.hpcd_USB_FS
-                0x20000254      0x2d4 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x20000254                hpcd_USB_FS
- .bss.buffer    0x20000528       0x32 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x20000528                buffer
- *fill*         0x2000055a        0x2 
+                0x20000258      0x2d4 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x20000258                hpcd_USB_FS
+ .bss.buffer    0x2000052c       0x32 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x2000052c                buffer
+ *fill*         0x2000055e        0x2 
  .bss.last_capture
-                0x2000055c        0x4 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x2000055c                last_capture
- .bss.period    0x20000560        0x4 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x20000560                period
+                0x20000560        0x4 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x20000560                last_capture
+ .bss.period    0x20000564        0x4 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x20000564                period
  .bss.frequency
-                0x20000564        0x4 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
-                0x20000564                frequency
+                0x20000568        0x4 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+                0x20000568                frequency
  .bss.__sbrk_heap_end
-                0x20000568        0x4 CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
- .bss.__sf      0x2000056c      0x138 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
-                0x2000056c                __sf
- .bss.errno     0x200006a4        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
-                0x200006a4                errno
+                0x2000056c        0x4 CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
+ .bss.__sf      0x20000570      0x138 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
+                0x20000570                __sf
+ .bss.errno     0x200006a8        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
+                0x200006a8                errno
  .bss.__lock___malloc_recursive_mutex
-                0x200006a8        0x1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
-                0x200006a8                __lock___malloc_recursive_mutex
- *fill*         0x200006a9        0x3 
+                0x200006ac        0x1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
+                0x200006ac                __lock___malloc_recursive_mutex
+ *fill*         0x200006ad        0x3 
  .bss.__malloc_sbrk_start
-                0x200006ac        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
-                0x200006ac                __malloc_sbrk_start
- .bss.__malloc_free_list
                 0x200006b0        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
-                0x200006b0                __malloc_free_list
+                0x200006b0                __malloc_sbrk_start
+ .bss.__malloc_free_list
+                0x200006b4        0x4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
+                0x200006b4                __malloc_free_list
  *(COMMON)
-                0x200006b4                        . = ALIGN (0x4)
-                0x200006b4                        _ebss = .
-                0x200006b4                        __bss_end__ = _ebss
+                0x200006b8                        . = ALIGN (0x4)
+                0x200006b8                        _ebss = .
+                0x200006b8                        __bss_end__ = _ebss
                 [!provide]                        PROVIDE (__bss_end = .)
                 [!provide]                        PROVIDE (__non_tls_bss_start = ADDR (.bss))
                 [!provide]                        PROVIDE (__bss_start = __tbss_start)
                 [!provide]                        PROVIDE (__bss_size = (__bss_end - __bss_start))
 
 ._user_heap_stack
-                0x200006b4      0x604 load address 0x08005758
+                0x200006b8      0x600 load address 0x0800575c
                 0x200006b8                        . = ALIGN (0x8)
- *fill*         0x200006b4        0x4 
                 [!provide]                        PROVIDE (end = .)
                 0x200006b8                        PROVIDE (_end = .)
                 0x200008b8                        . = (. + _Min_Heap_Size)
@@ -4938,7 +4940,7 @@ LOAD linker stubs
  .comment       0x00000043       0x44 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
  .comment       0x00000043       0x44 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
 
-.debug_info     0x00000000    0x1e56b
+.debug_info     0x00000000    0x1e580
  .debug_info    0x00000000      0x407 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
  .debug_info    0x00000407     0x163b cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_usb.c.obj
  .debug_info    0x00001a42     0x20c3 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c.obj
@@ -4953,32 +4955,32 @@ LOAD linker stubs
  .debug_info    0x0000b8a8     0x156d cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c.obj
  .debug_info    0x0000ce15     0x39a8 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c.obj
  .debug_info    0x000107bd     0x166f cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd.c.obj
- .debug_info    0x00011e2c     0x1e3e CMakeFiles/Lab04.dir/Core/Src/main.c.obj
- .debug_info    0x00013c6a      0x6f7 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
- .debug_info    0x00014361     0x1b3c CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
- .debug_info    0x00015e9d      0x168 CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
- .debug_info    0x00016005       0x30 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
- .debug_info    0x00016035      0xfb8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
- .debug_info    0x00016fed      0x885 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
- .debug_info    0x00017872       0xe0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
- .debug_info    0x00017952      0x8a1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
- .debug_info    0x000181f3      0x715 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-impure.o)
- .debug_info    0x00018908      0x6fb /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
- .debug_info    0x00019003      0x10b /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
- .debug_info    0x0001910e      0x218 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
- .debug_info    0x00019326      0x851 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
- .debug_info    0x00019b77      0x9bc /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
- .debug_info    0x0001a533      0x76b /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
- .debug_info    0x0001ac9e     0x10b3 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
- .debug_info    0x0001bd51      0xde2 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_info    0x0001cb33      0x10f /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
- .debug_info    0x0001cc42      0x782 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
- .debug_info    0x0001d3c4       0x25 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
- .debug_info    0x0001d3e9      0x121 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
- .debug_info    0x0001d50a      0x8cd /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
- .debug_info    0x0001ddd7      0x794 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
+ .debug_info    0x00011e2c     0x1e53 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+ .debug_info    0x00013c7f      0x6f7 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+ .debug_info    0x00014376     0x1b3c CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+ .debug_info    0x00015eb2      0x168 CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
+ .debug_info    0x0001601a       0x30 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
+ .debug_info    0x0001604a      0xfb8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
+ .debug_info    0x00017002      0x885 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
+ .debug_info    0x00017887       0xe0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
+ .debug_info    0x00017967      0x8a1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
+ .debug_info    0x00018208      0x715 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-impure.o)
+ .debug_info    0x0001891d      0x6fb /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
+ .debug_info    0x00019018      0x10b /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
+ .debug_info    0x00019123      0x218 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
+ .debug_info    0x0001933b      0x851 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
+ .debug_info    0x00019b8c      0x9bc /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
+ .debug_info    0x0001a548      0x76b /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
+ .debug_info    0x0001acb3     0x10b3 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
+ .debug_info    0x0001bd66      0xde2 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .debug_info    0x0001cb48      0x10f /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
+ .debug_info    0x0001cc57      0x782 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
+ .debug_info    0x0001d3d9       0x25 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
+ .debug_info    0x0001d3fe      0x121 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
+ .debug_info    0x0001d51f      0x8cd /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
+ .debug_info    0x0001ddec      0x794 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
 
-.debug_abbrev   0x00000000     0x48aa
+.debug_abbrev   0x00000000     0x48ac
  .debug_abbrev  0x00000000      0x11a cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
  .debug_abbrev  0x0000011a      0x247 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_usb.c.obj
  .debug_abbrev  0x00000361      0x260 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c.obj
@@ -4993,30 +4995,30 @@ LOAD linker stubs
  .debug_abbrev  0x00001882      0x283 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c.obj
  .debug_abbrev  0x00001b05      0x2d1 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c.obj
  .debug_abbrev  0x00001dd6      0x2d9 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd.c.obj
- .debug_abbrev  0x000020af      0x309 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
- .debug_abbrev  0x000023b8      0x194 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
- .debug_abbrev  0x0000254c      0x231 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
- .debug_abbrev  0x0000277d       0xbc CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
- .debug_abbrev  0x00002839       0x24 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
- .debug_abbrev  0x0000285d      0x424 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
- .debug_abbrev  0x00002c81      0x21c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
- .debug_abbrev  0x00002e9d       0x9e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
- .debug_abbrev  0x00002f3b      0x1f7 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
- .debug_abbrev  0x00003132      0x149 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-impure.o)
- .debug_abbrev  0x0000327b      0x15e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
- .debug_abbrev  0x000033d9       0xc9 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
- .debug_abbrev  0x000034a2      0x115 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
- .debug_abbrev  0x000035b7      0x236 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
- .debug_abbrev  0x000037ed      0x24a /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
- .debug_abbrev  0x00003a37      0x1bf /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
- .debug_abbrev  0x00003bf6      0x31e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
- .debug_abbrev  0x00003f14      0x28e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_abbrev  0x000041a2       0xac /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
- .debug_abbrev  0x0000424e      0x1da /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
- .debug_abbrev  0x00004428       0x14 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
- .debug_abbrev  0x0000443c       0xc1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
- .debug_abbrev  0x000044fd      0x217 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
- .debug_abbrev  0x00004714      0x196 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
+ .debug_abbrev  0x000020af      0x30b CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+ .debug_abbrev  0x000023ba      0x194 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+ .debug_abbrev  0x0000254e      0x231 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+ .debug_abbrev  0x0000277f       0xbc CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
+ .debug_abbrev  0x0000283b       0x24 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
+ .debug_abbrev  0x0000285f      0x424 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
+ .debug_abbrev  0x00002c83      0x21c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
+ .debug_abbrev  0x00002e9f       0x9e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
+ .debug_abbrev  0x00002f3d      0x1f7 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
+ .debug_abbrev  0x00003134      0x149 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-impure.o)
+ .debug_abbrev  0x0000327d      0x15e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
+ .debug_abbrev  0x000033db       0xc9 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
+ .debug_abbrev  0x000034a4      0x115 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
+ .debug_abbrev  0x000035b9      0x236 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
+ .debug_abbrev  0x000037ef      0x24a /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
+ .debug_abbrev  0x00003a39      0x1bf /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
+ .debug_abbrev  0x00003bf8      0x31e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
+ .debug_abbrev  0x00003f16      0x28e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .debug_abbrev  0x000041a4       0xac /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
+ .debug_abbrev  0x00004250      0x1da /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
+ .debug_abbrev  0x0000442a       0x14 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
+ .debug_abbrev  0x0000443e       0xc1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
+ .debug_abbrev  0x000044ff      0x217 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
+ .debug_abbrev  0x00004716      0x196 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
 
 .debug_aranges  0x00000000     0x1660
  .debug_aranges
@@ -5258,7 +5260,7 @@ LOAD linker stubs
  .debug_macro   0x0001f117       0x57 CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
  .debug_macro   0x0001f16e      0x23c CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
 
-.debug_line     0x00000000    0x1b48b
+.debug_line     0x00000000    0x1b47c
  .debug_line    0x00000000      0x836 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
  .debug_line    0x00000836     0x1153 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_usb.c.obj
  .debug_line    0x00001989     0x37d5 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c.obj
@@ -5273,73 +5275,73 @@ LOAD linker stubs
  .debug_line    0x00010170     0x1a9f cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c.obj
  .debug_line    0x00011c0f     0x2cc5 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c.obj
  .debug_line    0x000148d4     0x1335 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd.c.obj
- .debug_line    0x00015c09      0xb5a CMakeFiles/Lab04.dir/Core/Src/main.c.obj
- .debug_line    0x00016763      0x89b CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
- .debug_line    0x00016ffe      0x97d CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
- .debug_line    0x0001797b      0x380 CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
- .debug_line    0x00017cfb       0x7a CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
- .debug_line    0x00017d75      0x5d1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
- .debug_line    0x00018346      0x2ac /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
- .debug_line    0x000185f2      0x17e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
- .debug_line    0x00018770      0x2f5 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
- .debug_line    0x00018a65      0x163 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-impure.o)
- .debug_line    0x00018bc8      0x185 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
- .debug_line    0x00018d4d      0x168 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
- .debug_line    0x00018eb5      0x19b /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
- .debug_line    0x00019050      0x30d /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
- .debug_line    0x0001935d      0x4e5 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
- .debug_line    0x00019842      0x1ed /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
- .debug_line    0x00019a2f      0x877 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
- .debug_line    0x0001a2a6      0x70e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_line    0x0001a9b4      0x1bb /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
- .debug_line    0x0001ab6f      0x21f /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
- .debug_line    0x0001ad8e       0x84 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
- .debug_line    0x0001ae12      0x202 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
- .debug_line    0x0001b014      0x272 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
- .debug_line    0x0001b286      0x205 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
+ .debug_line    0x00015c09      0xb4b CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+ .debug_line    0x00016754      0x89b CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+ .debug_line    0x00016fef      0x97d CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+ .debug_line    0x0001796c      0x380 CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
+ .debug_line    0x00017cec       0x7a CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
+ .debug_line    0x00017d66      0x5d1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
+ .debug_line    0x00018337      0x2ac /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
+ .debug_line    0x000185e3      0x17e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
+ .debug_line    0x00018761      0x2f5 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
+ .debug_line    0x00018a56      0x163 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-impure.o)
+ .debug_line    0x00018bb9      0x185 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
+ .debug_line    0x00018d3e      0x168 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
+ .debug_line    0x00018ea6      0x19b /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
+ .debug_line    0x00019041      0x30d /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
+ .debug_line    0x0001934e      0x4e5 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
+ .debug_line    0x00019833      0x1ed /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
+ .debug_line    0x00019a20      0x877 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
+ .debug_line    0x0001a297      0x70e /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .debug_line    0x0001a9a5      0x1bb /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
+ .debug_line    0x0001ab60      0x21f /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
+ .debug_line    0x0001ad7f       0x84 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
+ .debug_line    0x0001ae03      0x202 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
+ .debug_line    0x0001b005      0x272 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
+ .debug_line    0x0001b277      0x205 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
 
-.debug_str      0x00000000    0xbebc3
- .debug_str     0x00000000    0xbebc3 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
+.debug_str      0x00000000    0xbebce
+ .debug_str     0x00000000    0xbebce cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
                               0xb4814 (size before relaxing)
- .debug_str     0x000bebc3    0xb4b9e cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_usb.c.obj
- .debug_str     0x000bebc3    0xb5b14 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c.obj
- .debug_str     0x000bebc3    0xb4d0b cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.c.obj
- .debug_str     0x000bebc3    0xb5052 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c.obj
- .debug_str     0x000bebc3    0xb4cb4 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c.obj
- .debug_str     0x000bebc3    0xb4a78 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.c.obj
- .debug_str     0x000bebc3    0xb4981 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.c.obj
- .debug_str     0x000bebc3    0xb50d6 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c.obj
- .debug_str     0x000bebc3    0xb513a cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_spi.c.obj
- .debug_str     0x000bebc3    0xb5c4b cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.c.obj
- .debug_str     0x000bebc3    0xb5491 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c.obj
- .debug_str     0x000bebc3    0xb5537 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c.obj
- .debug_str     0x000bebc3    0xb5049 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd.c.obj
- .debug_str     0x000bebc3    0xb932f CMakeFiles/Lab04.dir/Core/Src/main.c.obj
- .debug_str     0x000bebc3    0xb51e7 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
- .debug_str     0x000bebc3    0xb6112 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
- .debug_str     0x000bebc3     0x70de CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
- .debug_str     0x000bebc3       0x82 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
- .debug_str     0x000bebc3      0x7b4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
- .debug_str     0x000bebc3      0x570 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
- .debug_str     0x000bebc3      0x211 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
- .debug_str     0x000bebc3      0x550 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
- .debug_str     0x000bebc3      0x531 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-impure.o)
- .debug_str     0x000bebc3      0x52b /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
- .debug_str     0x000bebc3      0x272 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
- .debug_str     0x000bebc3      0x3a8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
- .debug_str     0x000bebc3      0x5b1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
- .debug_str     0x000bebc3      0x612 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
- .debug_str     0x000bebc3      0x5b3 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
- .debug_str     0x000bebc3      0x87a /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
- .debug_str     0x000bebc3      0x810 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_str     0x000bebc3      0x22c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
- .debug_str     0x000bebc3      0x53a /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
- .debug_str     0x000bebc3       0xe2 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
- .debug_str     0x000bebc3      0x22f /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
- .debug_str     0x000bebc3      0x5a7 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
- .debug_str     0x000bebc3      0x57a /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
+ .debug_str     0x000bebce    0xb4b9e cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_usb.c.obj
+ .debug_str     0x000bebce    0xb5b14 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c.obj
+ .debug_str     0x000bebce    0xb4d0b cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c_ex.c.obj
+ .debug_str     0x000bebce    0xb5052 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal.c.obj
+ .debug_str     0x000bebce    0xb4cb4 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc.c.obj
+ .debug_str     0x000bebce    0xb4a78 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_rcc_ex.c.obj
+ .debug_str     0x000bebce    0xb4981 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.c.obj
+ .debug_str     0x000bebce    0xb50d6 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_cortex.c.obj
+ .debug_str     0x000bebce    0xb513a cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_spi.c.obj
+ .debug_str     0x000bebce    0xb5c4b cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim.c.obj
+ .debug_str     0x000bebce    0xb5491 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c.obj
+ .debug_str     0x000bebce    0xb5537 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c.obj
+ .debug_str     0x000bebce    0xb5049 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd.c.obj
+ .debug_str     0x000bebce    0xb933a CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+ .debug_str     0x000bebce    0xb51e7 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+ .debug_str     0x000bebce    0xb6112 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+ .debug_str     0x000bebce     0x70de CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
+ .debug_str     0x000bebce       0x82 CMakeFiles/Lab04.dir/startup_stm32f303xc.s.obj
+ .debug_str     0x000bebce      0x7b4 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
+ .debug_str     0x000bebce      0x570 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
+ .debug_str     0x000bebce      0x211 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
+ .debug_str     0x000bebce      0x550 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
+ .debug_str     0x000bebce      0x531 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-impure.o)
+ .debug_str     0x000bebce      0x52b /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
+ .debug_str     0x000bebce      0x272 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
+ .debug_str     0x000bebce      0x3a8 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
+ .debug_str     0x000bebce      0x5b1 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
+ .debug_str     0x000bebce      0x612 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
+ .debug_str     0x000bebce      0x5b3 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
+ .debug_str     0x000bebce      0x87a /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
+ .debug_str     0x000bebce      0x810 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .debug_str     0x000bebce      0x22c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
+ .debug_str     0x000bebce      0x53a /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
+ .debug_str     0x000bebce       0xe2 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
+ .debug_str     0x000bebce      0x22f /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
+ .debug_str     0x000bebce      0x5a7 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
+ .debug_str     0x000bebce      0x57a /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
 
-.debug_frame    0x00000000     0x5540
+.debug_frame    0x00000000     0x5544
  .debug_frame   0x00000000       0x50 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Core/Src/system_stm32f3xx.c.obj
  .debug_frame   0x00000050      0x32c cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_ll_usb.c.obj
  .debug_frame   0x0000037c      0xbe8 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_i2c.c.obj
@@ -5354,29 +5356,29 @@ LOAD linker stubs
  .debug_frame   0x000034fc      0x648 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_tim_ex.c.obj
  .debug_frame   0x00003b44      0x974 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_uart.c.obj
  .debug_frame   0x000044b8      0x550 cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_pcd.c.obj
- .debug_frame   0x00004a08      0x16c CMakeFiles/Lab04.dir/Core/Src/main.c.obj
- .debug_frame   0x00004b74      0x130 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
- .debug_frame   0x00004ca4      0x1e4 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
- .debug_frame   0x00004e88       0x34 CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
- .debug_frame   0x00004ebc       0xac /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/libgcc.a(_arm_addsubdf3.o)
- .debug_frame   0x00004f68      0x144 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
- .debug_frame   0x000050ac       0x74 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
- .debug_frame   0x00005120       0x20 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
- .debug_frame   0x00005140       0x38 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
- .debug_frame   0x00005178       0x20 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
- .debug_frame   0x00005198       0x2c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
- .debug_frame   0x000051c4       0xb0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
- .debug_frame   0x00005274       0x38 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
- .debug_frame   0x000052ac       0x50 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
- .debug_frame   0x000052fc       0x30 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
- .debug_frame   0x0000532c       0x90 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
- .debug_frame   0x000053bc       0x60 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
- .debug_frame   0x0000541c       0x28 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
- .debug_frame   0x00005444       0x2c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
- .debug_frame   0x00005470       0x4c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
- .debug_frame   0x000054bc       0x28 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
- .debug_frame   0x000054e4       0x3c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
- .debug_frame   0x00005520       0x20 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
+ .debug_frame   0x00004a08      0x170 CMakeFiles/Lab04.dir/Core/Src/main.c.obj
+ .debug_frame   0x00004b78      0x130 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_it.c.obj
+ .debug_frame   0x00004ca8      0x1e4 CMakeFiles/Lab04.dir/Core/Src/stm32f3xx_hal_msp.c.obj
+ .debug_frame   0x00004e8c       0x34 CMakeFiles/Lab04.dir/Core/Src/sysmem.c.obj
+ .debug_frame   0x00004ec0       0xac /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/thumb/v7e-m+fp/hard/libgcc.a(_arm_addsubdf3.o)
+ .debug_frame   0x00004f6c      0x144 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-findfp.o)
+ .debug_frame   0x000050b0       0x74 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sprintf.o)
+ .debug_frame   0x00005124       0x20 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memset.o)
+ .debug_frame   0x00005144       0x38 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reent.o)
+ .debug_frame   0x0000517c       0x20 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-errno.o)
+ .debug_frame   0x0000519c       0x2c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-init.o)
+ .debug_frame   0x000051c8       0xb0 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-lock.o)
+ .debug_frame   0x00005278       0x38 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-freer.o)
+ .debug_frame   0x000052b0       0x50 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mallocr.o)
+ .debug_frame   0x00005300       0x30 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-mlock.o)
+ .debug_frame   0x00005330       0x90 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-svfprintf.o)
+ .debug_frame   0x000053c0       0x60 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-nano-vfprintf_i.o)
+ .debug_frame   0x00005420       0x28 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memmove.o)
+ .debug_frame   0x00005448       0x2c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-sbrkr.o)
+ .debug_frame   0x00005474       0x4c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memchr.o)
+ .debug_frame   0x000054c0       0x28 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-memcpy-stub.o)
+ .debug_frame   0x000054e8       0x3c /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-reallocr.o)
+ .debug_frame   0x00005524       0x20 /home/administrator/snap/code/219/.local/share/stm32cube/bundles/gnu-tools-for-stm32/14.3.1+st.2/bin/../lib/gcc/arm-none-eabi/14.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/libg_nano.a(libc_a-msizer.o)
 
 .debug_line_str
                 0x00000000      0x13a
