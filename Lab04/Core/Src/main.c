@@ -53,6 +53,9 @@ UART_HandleTypeDef huart2;
 
 PCD_HandleTypeDef hpcd_USB_FS;
 
+volatile uint32_t period_shared = 0;
+volatile uint8_t new_data_flag = 0;
+
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -145,11 +148,17 @@ int main(void)
   {
     //Task 1
     /* USER CODE END WHILE */
-    if (data_ready) {
-        frequency = 1000000.0f / (float)period;
-        int len = sprintf(buffer, "Freq: %.2f Hz\r\n", frequency);
-        HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 100);
-        data_ready = 0; // Reset flag
+    if (new_data_flag) {
+        __disable_irq();
+        uint32_t p = period_shared;
+        new_data_flag = 0;
+        __enable_irq();
+
+        if (p != 0) {
+            float freq = 1000000.0f / (float)p;
+            int len = sprintf(buffer, "Freq: %.2f Hz\r\n", freq);
+            HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 100);
+        }
     }
     /* USER CODE BEGIN 3 */
   }
@@ -331,17 +340,15 @@ static void MX_SPI1_Init(void)
 
   //Task 4
   void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
-    if (htim->Instance == TIM3) {
+    if (htim->Instance == TIM3 && htim->Channel == HAL_TIM_ACTIVE_CHANNEL_3) {
         uint32_t current_capture = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_3);
-        
         if (current_capture >= last_capture) {
-            period = current_capture - last_capture;
+            period_shared = current_capture - last_capture;
         } else {
-            period = (65535 - last_capture) + current_capture + 1;
+            period_shared = (65535 - last_capture) + current_capture + 1;
         }
-        
         last_capture = current_capture;
-        data_ready = 1;
+        new_data_flag = 1;
     }
 }
 
