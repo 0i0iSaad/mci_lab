@@ -19,7 +19,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stdio.h"
-volatile uint8_t data_ready = 0;
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -55,6 +54,7 @@ PCD_HandleTypeDef hpcd_USB_FS;
 
 volatile uint32_t period_shared = 0;
 volatile uint8_t new_data_flag = 0;
+volatile uint8_t data_ready = 0;
 
 /* USER CODE BEGIN PV */
 
@@ -80,14 +80,14 @@ uint32_t last_capture = 0, period = 0;
 float frequency = 0.0f;
 
 //Task 1
-//   void delay_ms(uint32_t ms)
-// {
-//     __HAL_TIM_SET_COUNTER(&htim2, 0);
-//     HAL_TIM_Base_Start(&htim2);
-//     while (__HAL_TIM_GET_COUNTER(&htim2) < ms);
+  void delay_ms(uint32_t ms)
+{
+    __HAL_TIM_SET_COUNTER(&htim2, 0);
+    HAL_TIM_Base_Start(&htim2);
+    while (__HAL_TIM_GET_COUNTER(&htim2) < ms);
 
-//     HAL_TIM_Base_Stop(&htim2);
-// }
+    HAL_TIM_Base_Stop(&htim2);
+}
 
 
 
@@ -107,7 +107,7 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-   HAL_Init();
+  HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -135,11 +135,11 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   // __HAL_TIM_SET_COUNTER(&htim2, 0);
-  // HAL_TIM_Base_Start(&htim2);
-  // HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
+  HAL_TIM_Base_Start(&htim2);
+  HAL_GPIO_WritePin(LD3_GPIO_Port, LD3_Pin, GPIO_PIN_RESET);
 
   //Task 2
-  // HAL_TIM_Base_Start_IT(&htim2);
+  HAL_TIM_Base_Start_IT(&htim2);
 
   //Task 4
   HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_3);
@@ -162,8 +162,10 @@ int main(void)
     }
     /* USER CODE BEGIN 3 */
   }
+    /* USER CODE BEGIN 3 */
+  }
   /* USER CODE END 3 */
-}
+
 
 /**
   * @brief System Clock Configuration
@@ -268,7 +270,6 @@ static void MX_I2C1_Init(void)
   * @param None
   * @retval None
   */
-
 static void MX_SPI1_Init(void)
 {
 
@@ -305,38 +306,38 @@ static void MX_SPI1_Init(void)
 }
 
 //task 2
-  // void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
-  //   if (htim -> Instance == TIM2) {
-  //     HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
-  //   } 
-  // }
+  void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
+    if (htim -> Instance == TIM2) {
+      HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
+    } 
+  }
 
   //Task 3
-  // uint32_t countA = 0;
-  // uint32_t countB = 0;
-  // uint32_t countC = 0;
-  // void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
-  //   if (htim -> Instance == TIM2) {
-  //     countA++;
-  //     countB++;
-  //     countC++;
+  uint32_t countA = 0;
+  uint32_t countB = 0;
+  uint32_t countC = 0;
+  void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+    if (htim -> Instance == TIM2) {
+      countA++;
+      countB++;
+      countC++;
 
-  //     if(countA >= 500u){
-  //       HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
-  //       countA = 0;
-  //     }
+      if(countA >= 500u){
+        HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
+        countA = 0;
+      }
 
-  //     if(countB >= 200u){
-  //       HAL_GPIO_TogglePin (LD4_GPIO_Port , LD4_Pin);
-  //       countB = 0;
-  //     }
+      if(countB >= 200u){
+        HAL_GPIO_TogglePin (LD4_GPIO_Port , LD4_Pin);
+        countB = 0;
+      }
 
-  //     if(countC >= 100u){
-  //       HAL_GPIO_TogglePin (LD5_GPIO_Port , LD5_Pin);
-  //       countC = 0;
-  //     }
-  //   } 
-  // }
+      if(countC >= 100u){
+        HAL_GPIO_TogglePin (LD5_GPIO_Port , LD5_Pin);
+        countC = 0;
+      }
+    } 
+  }
 
   //Task 4
   void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
@@ -351,6 +352,7 @@ static void MX_SPI1_Init(void)
         new_data_flag = 1;
     }
 }
+
 
 /**
   * @brief TIM2 Initialization Function
@@ -371,7 +373,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 47;
+  htim2.Init.Prescaler = 47999;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 9999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -416,9 +418,9 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 1 */
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 47;
+  htim3.Init.Prescaler = 0;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 0xffff;
+  htim3.Init.Period = 65535;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_IC_Init(&htim3) != HAL_OK)
