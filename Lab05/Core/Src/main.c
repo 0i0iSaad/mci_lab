@@ -2,16 +2,17 @@
 /**
   ******************************************************************************
   * @file           : main.c
-  * @brief          : Main program body - LED Brightness Control Task
+  * @brief          : Motor Control with PWM Speed Control
   ******************************************************************************
   * @attention
   *
   * Copyright (c) 2026 STMicroelectronics.
   * All rights reserved.
   *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
+  * Motor Shield Connections:
+  * D10 (PC6)  - PWM Speed Control (TIM3_CH1)
+  * D8  (PD0)  - Direction Pin 1 (HIGH for forward)
+  * D12 (PD1)  - Direction Pin 2 (LOW for forward)
   *
   ******************************************************************************
   */
@@ -105,6 +106,9 @@ int main(void)
   
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
   
+  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET);    // D8 (PD0) = HIGH
+  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_RESET);  // D12 (PD1) = LOW
+  
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -125,6 +129,21 @@ int main(void)
       __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, brightness);
       HAL_Delay(2);
     }
+    
+    //Task 2
+    for (uint16_t speed = 0; speed <= 999; speed++)
+    {
+      __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, speed);
+      HAL_Delay(2); 
+    }
+    HAL_Delay(2000);
+    for (uint16_t speed = 999; speed > 0; speed--)
+    {
+      __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, speed);
+      HAL_Delay(2);
+    }
+    
+    HAL_Delay(1000);
     
   }
   /* USER CODE END 3 */
@@ -354,9 +373,9 @@ static void MX_USB_PCD_Init(void)
 static void MX_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-  /* USER CODE BEGIN MX_GPIO_Init_1 */
+/* USER CODE BEGIN MX_GPIO_Init_1 */
 
-  /* USER CODE END MX_GPIO_Init_1 */
+/* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOE_CLK_ENABLE();
@@ -364,11 +383,15 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();  // Enable GPIOD for motor direction pins
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOE, CS_I2C_SPI_Pin|LD4_Pin|LD3_Pin|LD5_Pin
                           |LD7_Pin|LD9_Pin|LD10_Pin|LD8_Pin
                           |LD6_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level for Motor Direction Pins */
+  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0|GPIO_PIN_1, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : DRDY_Pin MEMS_INT3_Pin MEMS_INT4_Pin MEMS_INT1_Pin
                            MEMS_INT2_Pin */
@@ -395,9 +418,16 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
-  /* USER CODE BEGIN MX_GPIO_Init_2 */
+  /*Configure GPIO pins : PD0 PD1 (Motor Direction Control) */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /* USER CODE END MX_GPIO_Init_2 */
+/* USER CODE BEGIN MX_GPIO_Init_2 */
+
+/* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
@@ -418,7 +448,8 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-#ifdef USE_FULL_ASSERT
+
+#ifdef  USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.
