@@ -47,6 +47,7 @@ I2C_HandleTypeDef hi2c1;
 SPI_HandleTypeDef hspi1;
 
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim3;
 
 UART_HandleTypeDef huart2;
 
@@ -64,6 +65,7 @@ static void MX_SPI1_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_USB_PCD_Init(void);
+static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -82,41 +84,74 @@ static void MX_USB_PCD_Init(void);
  *   Tick rate  = 48 MHz / (9+1) = 4,800,000 Hz
  */
 
-static uint32_t captureBuffer[16];
+// static uint32_t captureBuffer[16];
 static uint32_t lastCapture = 0;
-static uint8_t  sampleIndex = 0;
+// static uint8_t  sampleIndex = 0;
 static uint8_t  firstEdge   = 1;
 static volatile uint8_t printFlag = 0;
+static volatile float measuredFreq = 0.0f;
 
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+// void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+// {
+//     if (GPIO_Pin != GPIO_PIN_8) return;
+
+//     if (firstEdge)
+//     {
+//         __HAL_TIM_SET_COUNTER(&htim2, 0);
+//         HAL_TIM_Base_Start(&htim2);
+//         lastCapture = 0;
+//         firstEdge   = 0;
+//     }
+//     else
+//     {
+//         uint32_t now = __HAL_TIM_GET_COUNTER(&htim2);
+
+//         uint32_t period;
+//         if (now >= lastCapture)
+//             period = now - lastCapture;
+//         else
+//             period = (0xFFFFFFFFUL - lastCapture) + now + 1UL;
+
+//         captureBuffer[sampleIndex++] = period;
+//         lastCapture = now;
+
+//         if (sampleIndex >= 16)HAL_Delay(100);
+
+  
+//         {
+//             sampleIndex = 0;
+//             firstEdge   = 1;
+//             HAL_TIM_Base_Stop(&htim2);
+//             printFlag   = 1;
+//         }
+//     }
+// }
+
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
 {
-    if (GPIO_Pin != GPIO_PIN_8) return;
+    if (htim->Instance != TIM3) return;
+    if (htim->Channel  != HAL_TIM_ACTIVE_CHANNEL_1) return;
+
+    uint32_t now = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
 
     if (firstEdge)
     {
-        __HAL_TIM_SET_COUNTER(&htim2, 0);
-        HAL_TIM_Base_Start(&htim2);
-        lastCapture = 0;
-        firstEdge   = 0;
+        lastCapture = now;
+        firstEdge = 0;
     }
     else
     {
-        uint32_t now = __HAL_TIM_GET_COUNTER(&htim2);
-
         uint32_t period;
         if (now >= lastCapture)
             period = now - lastCapture;
         else
             period = (0xFFFFFFFFUL - lastCapture) + now + 1UL;
 
-        captureBuffer[sampleIndex++] = period;
         lastCapture = now;
 
-        if (sampleIndex >= 16)
+        if (period > 0)
         {
-            sampleIndex = 0;
-            firstEdge   = 1;
-            HAL_TIM_Base_Stop(&htim2);
+            measuredFreq = 1000000 / (float)period;
             printFlag   = 1;
         }
     }
@@ -157,39 +192,48 @@ int main(void)
   MX_TIM2_Init();
   MX_USART2_UART_Init();
   MX_USB_PCD_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
   char msg[80];
   while (1)
   {
     /* USER CODE END WHILE */
     //Task 1
-    HAL_Delay(100);   
+    // HAL_Delay(100); 
+
+    // if (printFlag)
+    // {
+    //   printFlag = 0;
+    //   uint64_t sum = 0;
+    //   for (int i = 0; i < 16; i++){
+    //     sum += captureBuffer[i];
+    //   }
+
+    //   float avgPeriod = (float)sum / (float)16;
+    //   float frequency = 4800000.0f / avgPeriod;
+    //   float errHigh = 4800000.0f / (avgPeriod - 1.0f);
+    //   float errLow = 4800000.0f / (avgPeriod + 1.0f);
+    //   float errorMargin = (errHigh - errLow) / 2.0f;
+
+    //   snprintf(msg, sizeof(msg), "Freq: %.2f Hz +/- %.4f Hz\r\n", frequency, errorMargin);
+    //   HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+    // }
+
+    //Task 2
+    HAL_Delay(100);
 
     if (printFlag)
     {
         printFlag = 0;
-        uint64_t sum = 0;
-        for (int i = 0; i < 16; i++){
-            sum += captureBuffer[i];
-        }
 
-        float avgPeriod = (float)sum / (float)16;
-        float frequency = 4800000.0f / avgPeriod;
-        float errHigh = 4800000.0f / (avgPeriod - 1.0f);
-        float errLow  = 4800000.0f / (avgPeriod + 1.0f);
-        float errorMargin = (errHigh - errLow) / 2.0f;
-
-        snprintf(msg, sizeof(msg), "Freq: %.2f Hz  +/- %.4f Hz\r\n", frequency, errorMargin);
- 
+        snprintf(msg, sizeof(msg), "Freq: %.2f Hz\r\n", measuredFreq);
         HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-        
-
-        
     }
     /* USER CODE BEGIN 3 */
   }
@@ -376,6 +420,54 @@ static void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_IC_InitTypeDef sConfigIC = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 47;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 65535;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_IC_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+  sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+  sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
+  sConfigIC.ICFilter = 0;
+  if (HAL_TIM_IC_ConfigChannel(&htim3, &sConfigIC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
 
 }
 
