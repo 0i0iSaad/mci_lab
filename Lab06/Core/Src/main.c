@@ -76,21 +76,15 @@ static void MX_TIM3_Init(void);
 
 /* USER CODE BEGIN 0 */
 
-/*
- * Clock Tree:
- *   HSE = 8 MHz, PLLMUL x6 = 48 MHz (SYSCLK)
- *   APB1 = SYSCLK / 2 = 24 MHz
- *   TIM2 clock = APB1 x 2 = 48 MHz  (x2 rule: APB1 prescaler != 1)
- *   Tick rate  = 48 MHz / (9+1) = 4,800,000 Hz
- */
-
+// Task 1 and 2
 // static uint32_t captureBuffer[16];
-static uint32_t lastCapture = 0;
+// static uint32_t lastCapture = 0;
 // static uint8_t  sampleIndex = 0;
-static uint8_t  firstEdge   = 1;
-static volatile uint8_t printFlag = 0;
-static volatile float measuredFreq = 0.0f;
+// static uint8_t  firstEdge   = 1;
+// static volatile uint8_t printFlag = 0;
+// static volatile float measuredFreq = 0.0f;
 
+// Task 1
 // void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 // {
 //     if (GPIO_Pin != GPIO_PIN_8) return;
@@ -127,35 +121,36 @@ static volatile float measuredFreq = 0.0f;
 //     }
 // }
 
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
-{
-    if (htim->Instance != TIM3) return;
-    if (htim->Channel  != HAL_TIM_ACTIVE_CHANNEL_1) return;
+// Task 2
+// void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+// {
+//     if (htim->Instance != TIM3) return;
+//     if (htim->Channel  != HAL_TIM_ACTIVE_CHANNEL_1) return;
 
-    uint32_t now = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+//     uint32_t now = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
 
-    if (firstEdge)
-    {
-        lastCapture = now;
-        firstEdge = 0;
-    }
-    else
-    {
-        uint32_t period;
-        if (now >= lastCapture)
-            period = now - lastCapture;
-        else
-            period = (0xFFFFFFFFUL - lastCapture) + now + 1UL;
+//     if (firstEdge)
+//     {
+//         lastCapture = now;
+//         firstEdge = 0;
+//     }
+//     else
+//     {
+//         uint32_t period;
+//         if (now >= lastCapture)
+//             period = now - lastCapture;
+//         else
+//             period = (0xFFFFFFFFUL - lastCapture) + now + 1UL;
 
-        lastCapture = now;
+//         lastCapture = now;
 
-        if (period > 0)
-        {
-            measuredFreq = 1000000 / (float)period;
-            printFlag   = 1;
-        }
-    }
-}
+//         if (period > 0)
+//         {
+//             measuredFreq = 666666 / (float)period;
+//             printFlag   = 1;
+//         }
+//     }
+// }
 /* USER CODE END 0 */
 
 /**
@@ -176,7 +171,7 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
-  /* USER CODE END Init */
+  /* USER CODE END Init */ // 50% duty if ARR=999
 
   /* Configure the system clock */
   SystemClock_Config();
@@ -199,11 +194,24 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
+
+  // Task 2
+  // HAL_TIM_IC_Start_IT(&htim3, TIM_CHANNEL_1);
+
+  // Task 3
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 500);
+
+  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_RESET);
+
+  HAL_TIM_Base_Start(&htim2);
+
   char msg[80];
   while (1)
   {
     /* USER CODE END WHILE */
+
     //Task 1
     // HAL_Delay(100); 
 
@@ -226,14 +234,42 @@ int main(void)
     // }
 
     //Task 2
-    HAL_Delay(100);
+    // HAL_Delay(100);
 
-    if (printFlag)
+    // if (printFlag)
+    // {
+    //     printFlag = 0;
+
+    //     snprintf(msg, sizeof(msg), "Freq: %.2f Hz\r\n", measuredFreq);
+    //     HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+    // }
+
+    // Task 3
+    uint32_t t1 = 0, t2 = 0;
+    uint32_t ticks = 0;
+    float frequency = 0.0f;
+    float rpm = 0.0f;
+
+    while (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_2) == GPIO_PIN_RESET);
+    while (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_2) == GPIO_PIN_SET);
+    t1 = __HAL_TIM_GET_COUNTER(&htim2);
+
+    while (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_2) == GPIO_PIN_RESET);
+    while (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_2) == GPIO_PIN_SET);
+    t2 = __HAL_TIM_GET_COUNTER(&htim2);
+
+    if (t2 >= t1)
+        ticks = t2 - t1;
+    else
+        ticks = (4294967295UL - t1) + t2 + 1;
+
+    if (ticks > 0)
     {
-        printFlag = 0;
+        frequency = 4800000.0f / (float)ticks;
+        rpm = (60.0f * frequency) / 20;
 
-        snprintf(msg, sizeof(msg), "Freq: %.2f Hz\r\n", measuredFreq);
-        HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+        int len = snprintf(msg, sizeof(msg), "Ticks: %u | Freq: %.2f Hz | RPM: %.2f\r\n", ticks, frequency, rpm);
+        HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
     }
     /* USER CODE BEGIN 3 */
   }
@@ -435,8 +471,10 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 0 */
 
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_IC_InitTypeDef sConfigIC = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
 
   /* USER CODE BEGIN TIM3_Init 1 */
 
@@ -444,10 +482,23 @@ static void MX_TIM3_Init(void)
   htim3.Instance = TIM3;
   htim3.Init.Prescaler = 47;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim3.Init.Period = 65535;
+  htim3.Init.Period = 999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
   if (HAL_TIM_IC_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
   {
     Error_Handler();
   }
@@ -465,9 +516,18 @@ static void MX_TIM3_Init(void)
   {
     Error_Handler();
   }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
   /* USER CODE BEGIN TIM3_Init 2 */
 
   /* USER CODE END TIM3_Init 2 */
+  HAL_TIM_MspPostInit(&htim3);
 
 }
 
@@ -563,7 +623,7 @@ static void MX_GPIO_Init(void)
                           |LD6_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0|GPIO_PIN_1, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : DRDY_Pin MEMS_INT3_Pin MEMS_INT4_Pin MEMS_INT2_Pin */
   GPIO_InitStruct.Pin = DRDY_Pin|MEMS_INT3_Pin|MEMS_INT4_Pin|MEMS_INT2_Pin;
@@ -594,11 +654,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PD0 PD1 PD2 PD3 */
-  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1|GPIO_PIN_2|GPIO_PIN_3;
+  /*Configure GPIO pins : PD0 PD1 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PD2 */
+  GPIO_InitStruct.Pin = GPIO_PIN_2;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
