@@ -208,8 +208,6 @@ int main(void)
   HAL_TIM_Base_Start(&htim2);
 
   char msg[80];
-  int len = snprintf(msg, sizeof(msg), "UART Working\r\n");
-  HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
   while (1)
   {
     /* USER CODE END WHILE */
@@ -265,12 +263,10 @@ int main(void)
     else
         ticks = (4294967295UL - t1) + t2 + 1;
 
-    if (ticks > 0)
-    {
+    if (ticks > 0){
         frequency = 4800000.0f / (float)ticks;
         rpm = (60.0f * frequency) / 20;
-
-        int len = snprintf(msg, sizeof(msg), "Ticks: %lu | Freq: %.2f Hz | RPM: %.2f\r\n", (unsigned long)ticks, frequency, rpm);
+        int len = snprintf(msg, sizeof(msg), "Ticks: %lu  Freq: %.2f Hz  RPM: %.2f\r\n", (unsigned long)ticks, frequency, rpm);
         HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
     }
     /* USER CODE BEGIN 3 */
