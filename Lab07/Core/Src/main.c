@@ -20,6 +20,10 @@
 #include "main.h"
 #include "stdio.h"
 #include "string.h"
+#include "arm_math.h"
+
+// Task 2
+#define FILTER_LEN 10
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -64,13 +68,34 @@ static void MX_SPI1_Init(void);
 static void MX_USB_PCD_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_USART2_UART_Init(void);
+
+// Task 2
+volatile uint32_t adc_raw;
+volatile uint8_t flag = 0;
+float32_t raw_voltage;
+float32_t filtered_voltage;
+float32_t filter_buffer[FILTER_LEN] = {0};
+uint8_t filter_index = 0;
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+{
+    if(hadc->Instance == ADC1)
+    {
+        adc_raw = HAL_ADC_GetValue(hadc);
+        flag = 1;
+    }
+}
 
+void apply_moving_average(float32_t new_sample) {
+    filter_buffer[filter_index] = new_sample; 
+    filter_index = (filter_index + 1) % FILTER_LEN;
+    arm_mean_f32(filter_buffer, FILTER_LEN, &filtered_voltage);
+}
 /* USER CODE END 0 */
 
 /**
@@ -115,22 +140,37 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   // Task 1
-  HAL_ADC_Start(&hadc1);
-  uint32_t adc_value = 0;
+  // HAL_ADC_Start(&hadc1);
+  // uint32_t adc_value = 0;
+
+  // Task 2
+  HAL_ADC_Start_IT(&hadc1);
   while (1)
   {
     /* USER CODE END WHILE */
 
     // Task 1
-    if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
-    {
-        adc_value = HAL_ADC_GetValue(&hadc1);
-        char msg[30];
-        int len = snprintf(msg, sizeof(msg), "ADC Value: %lu\r\n", (unsigned long)adc_value);
-        HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
-    }
+    // if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
+    // {
+    //     adc_value = HAL_ADC_GetValue(&hadc1);
+    //     char msg[30];
+    //     int len = snprintf(msg, sizeof(msg), "ADC Value: %lu\r\n", (unsigned long)adc_value);
+    //     HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
+    // }
 
-    HAL_Delay(200);
+    // Task 2 (Interrupt Method)
+    // Change this in your STM32 main.c (while loop)
+if (flag) 
+{
+    flag = 0;
+    raw_voltage = ((float32_t)adc_raw * 3.3f) / 4095.0f; 
+    apply_moving_average(raw_voltage);
+    char msg[64];
+    int filtered_raw = (int)((filtered_voltage * 4095.0f) / 3.3f);
+    int len = snprintf(msg, sizeof(msg), "%lu,%d\r\n", (unsigned long)adc_raw, filtered_raw);
+    HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
+}
+    HAL_Delay(10);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -240,7 +280,7 @@ static void MX_ADC1_Init(void)
   sConfig.Channel = ADC_CHANNEL_2;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_601CYCLES_5;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
