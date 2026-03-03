@@ -311,6 +311,7 @@ int main(void)
     //     HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
     // }
     
+    //Task 4
     if (printFlag)
     {
     	printFlag = 0;
