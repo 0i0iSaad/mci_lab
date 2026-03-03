@@ -140,8 +140,8 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   // Task 1
-  // HAL_ADC_Start(&hadc1);
-  // uint32_t adc_value = 0;
+  HAL_ADC_Start(&hadc1);
+  uint32_t adc_value = 0;
 
   // Task 2
   HAL_ADC_Start_IT(&hadc1);
@@ -150,27 +150,37 @@ int main(void)
     /* USER CODE END WHILE */
 
     // Task 1
-    // if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
-    // {
-    //     adc_value = HAL_ADC_GetValue(&hadc1);
-    //     char msg[30];
-    //     int len = snprintf(msg, sizeof(msg), "ADC Value: %lu\r\n", (unsigned long)adc_value);
-    //     HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
-    // }
+    if (HAL_ADC_PollForConversion(&hadc1, 10) == HAL_OK)
+    {
+        adc_value = HAL_ADC_GetValue(&hadc1);
+        char msg[30];
+        int len = snprintf(msg, sizeof(msg), "ADC Value: %lu\r\n", (unsigned long)adc_value);
+        HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
+    }
 
     // Task 2 (Interrupt Method)
-    // Change this in your STM32 main.c (while loop)
-if (flag) 
-{
-    flag = 0;
-    raw_voltage = ((float32_t)adc_raw * 3.3f) / 4095.0f; 
-    apply_moving_average(raw_voltage);
-    char msg[64];
-    int filtered_raw = (int)((filtered_voltage * 4095.0f) / 3.3f);
-    int len = snprintf(msg, sizeof(msg), "%lu,%d\r\n", (unsigned long)adc_raw, filtered_raw);
-    HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
-}
-    HAL_Delay(10);
+    if (flag) 
+    {
+      flag = 0;
+      raw_voltage = ((float32_t)adc_raw * 3.3f) / 4095.0f; 
+      apply_moving_average(raw_voltage);
+      char msg[64];
+      int filtered_raw = (int)((filtered_voltage * 4095.0f) / 3.3f);
+      int len = snprintf(msg, sizeof(msg), "%lu,%d\r\n", (unsigned long)adc_raw, filtered_raw);
+      HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
+    }
+
+    // Task 2 (Polling Method)
+    if (HAL_ADC_PollForConversion(&hadc1, 1) == HAL_OK) 
+    {
+      uint32_t adc_val = HAL_ADC_GetValue(&hadc1); 
+      raw_voltage = ((float32_t)adc_val * 3.3f) / 4095.0f;
+      apply_moving_average(raw_voltage);
+      int filtered_raw = (int)((filtered_voltage * 4095.0f) / 3.3f);
+      char msg[32]; 
+      int len = snprintf(msg, sizeof(msg), "%lu,%d\n", (unsigned long)adc_val, filtered_raw);
+      HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, 5);
+    }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
