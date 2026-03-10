@@ -22,8 +22,10 @@
 #include <string.h>
 
 // Task 2
-# define CTRL_REG1 0x20
-# define CTRL_REG1_VAL 0b00001111
+#define CTRL_REG1 0x20
+#define CTRL_REG1_VAL 0b00001111
+#define CTRL_REG4 0x23
+#define CTRL_REG4_VAL 0b00000000
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -66,6 +68,7 @@ static void MX_SPI1_Init(void);
 static void MX_USB_PCD_Init(void);
 static void MX_USART2_UART_Init(void);
 void gyro_init(void);
+void gyro_set_ctrl_reg4(void);
 
 // Task 1
 // uint8_t tx_addr;
@@ -93,21 +96,30 @@ void gyro_init ()
   HAL_GPIO_WritePin (GPIOE , GPIO_PIN_3 , GPIO_PIN_SET );
 }
 
-void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
-{
-  if(hspi->Instance == SPI1)
-  {
-    HAL_SPI_Receive_IT(hspi, &temp_rx_data, 1);
-  }
-}
+// void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi)
+// {
+//   if(hspi->Instance == SPI1)
+//   {
+//     HAL_SPI_Receive_IT(hspi, &temp_rx_data, 1);
+//   }
+// }
 
-void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+// void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi)
+// {
+//   if(hspi->Instance == SPI1)
+//   {
+//     HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+//     rx_complete = 1; 
+//   }
+// }
+
+// Task 3
+void gyro_set_ctrl_reg4 ()
 {
-  if(hspi->Instance == SPI1)
-  {
-    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
-    rx_complete = 1; 
-  }
+  uint8_t tx [2] = { CTRL_REG4 , CTRL_REG4_VAL };
+  HAL_GPIO_WritePin (GPIOE , GPIO_PIN_3 , GPIO_PIN_RESET );
+  HAL_SPI_Transmit (& hspi1 , tx , 2, HAL_MAX_DELAY );
+  HAL_GPIO_WritePin (GPIOE , GPIO_PIN_3 , GPIO_PIN_SET );
 }
 /* USER CODE END 0 */
 
@@ -158,6 +170,8 @@ int main(void)
   // Task 2
   gyro_init();
 
+  // Task 3
+  gyro_set_ctrl_reg4();
   while (1)
   {
     /* USER CODE END WHILE */
@@ -174,14 +188,46 @@ int main(void)
     // HAL_Delay(1000);
 
     // Task 2
-    rx_complete = 0;
-    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
-    HAL_SPI_Transmit_IT(&hspi1, &a6_tx_addr, 1);
-    while(!rx_complete); 
-    sprintf(uart_buf, "%d\r\n", (int8_t)temp_rx_data);
+    // rx_complete = 0;
+    // HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
+    // HAL_SPI_Transmit_IT(&hspi1, &a6_tx_addr, 1);
+    // while(!rx_complete); 
+    // sprintf(uart_buf, "%d\r\n", (int8_t)temp_rx_data);
 
+    // HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), HAL_MAX_DELAY);
+    // HAL_Delay(500);
+
+    // Task 3
+    uint8_t reg;
+    int8_t temp_raw;
+    uint8_t gyro_raw[6];
+    int16_t x_raw, y_raw, z_raw;
+    float x_dps, y_dps, z_dps;
+
+    reg = 0x26 | 0x80;
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
+    HAL_SPI_Transmit(&hspi1, &reg, 1, HAL_MAX_DELAY);
+    HAL_SPI_Receive(&hspi1, (uint8_t*)&temp_raw, 1, HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+
+    reg = 0x28 | 0x80 | 0x40;
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_RESET);
+    HAL_SPI_Transmit(&hspi1, &reg, 1, HAL_MAX_DELAY);
+    HAL_SPI_Receive(&hspi1, gyro_raw, 6, HAL_MAX_DELAY);
+    HAL_GPIO_WritePin(GPIOE, GPIO_PIN_3, GPIO_PIN_SET);
+
+    x_raw = (int16_t)((gyro_raw[1] << 8) | gyro_raw[0]);
+    y_raw = (int16_t)((gyro_raw[3] << 8) | gyro_raw[2]);
+    z_raw = (int16_t)((gyro_raw[5] << 8) | gyro_raw[4]);
+
+    x_dps = (float)x_raw * 0.00875f;
+    y_dps = (float)y_raw * 0.00875f;
+    z_dps = (float)z_raw * 0.00875f;
+
+    sprintf(uart_buf, "%d, %d, %d, %d\r\n", (int8_t)temp_raw, (int)x_dps, (int)y_dps, (int)z_dps);
     HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), HAL_MAX_DELAY);
-    HAL_Delay(500);
+
+    HAL_Delay(100);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
