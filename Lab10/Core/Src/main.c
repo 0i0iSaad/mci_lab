@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2026 STMicroelectronics.
+  * Copyright (c) 2025 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -18,13 +18,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stdio.h"
 #include "stdlib.h"
-#include "string.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "heap_driver.h"
+#include <string.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +47,7 @@ I2C_HandleTypeDef hi2c1;
 
 SPI_HandleTypeDef hspi1;
 
+UART_HandleTypeDef huart1;
 UART_HandleTypeDef huart2;
 
 PCD_HandleTypeDef hpcd_USB_FS;
@@ -62,13 +63,16 @@ static void MX_I2C1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_USB_PCD_Init(void);
+static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+void print_uart(const char* msg) {
+  HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+}
 /* USER CODE END 0 */
 
 /**
@@ -104,8 +108,9 @@ int main(void)
   MX_SPI1_Init();
   MX_USART2_UART_Init();
   MX_USB_PCD_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  
   // Task 1
   int n = 10;
   char uart_buf[100];
@@ -119,7 +124,7 @@ int main(void)
           malloc_array[i] = i * 2;
       }
   } else {
-      HAL_UART_Transmit(&huart2, (uint8_t*)"malloc allocation failed\r\n", 27, 100);
+      HAL_UART_Transmit(&huart2, (uint8_t*)"malloc allocation failed!\r\n", 27, 100);
   }
 
   int *calloc_array = (int *)calloc(n, sizeof(int));
@@ -127,7 +132,7 @@ int main(void)
   if (calloc_array != NULL) {
       HAL_UART_Transmit(&huart2, (uint8_t*)"calloc allocation successful.\r\n", 31, 100);
       
-      HAL_UART_Transmit(&huart2, (uint8_t*)"Verifying calloc is initialized by zero:\r\n", 39, 100);
+      HAL_UART_Transmit(&huart2, (uint8_t*)"Verifying calloc is zero-initialized:\r\n", 39, 100);
       for (int i = 0; i < n; i++) {
           sprintf(uart_buf, "calloc[%d] = %d\r\n", i, calloc_array[i]);
           HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, strlen(uart_buf), 100);
@@ -137,7 +142,7 @@ int main(void)
           calloc_array[i] = i + 1;
       }
   } else {
-      HAL_UART_Transmit(&huart2, (uint8_t*)"calloc allocation failed\r\n", 27, 100);
+      HAL_UART_Transmit(&huart2, (uint8_t*)"calloc allocation failed!\r\n", 27, 100);
   }
 
   HAL_UART_Transmit(&huart2, (uint8_t*)"\r\nFinal Array Contents:\r\n", 25, 100);
@@ -153,6 +158,54 @@ int main(void)
   calloc_array = NULL;
 
   HAL_UART_Transmit(&huart2, (uint8_t*)"\r\nMemory successfully freed and pointers cleared.\r\n", 51, 100);
+
+
+  // Task 2
+  // Print a message over UART to indicate the start of the test.
+  print_uart("=== Custom Heap Driver (Direct SRAM) ===\r\n");
+
+  // Initialize the custom heap allocator.
+  // This function sets up internal memory structures (e.g., the block_map array)
+  // so that all heap memory is marked as free.
+  // It MUST be called before using heap_alloc or heap_free.
+  heap_init();
+
+  // Allocate 32 bytes from the heap.
+  // heap_alloc returns a pointer to a memory region in SRAM that is at least 32 bytes long.
+  // We cast the void* return type to char* so we can use string functions like strcpy.
+  char* block1 = (char*)heap_alloc(32);
+
+  // Allocate 48 bytes from the heap.
+  char* block2 = (char*)heap_alloc(48);
+
+  // Check if both allocations were successful (i.e., the returned pointers are not NULL).
+  if (block1 && block2) {
+      // If successful, store strings into the allocated memory regions.
+      // Since the memory comes from our own heap allocator, we assume it behaves like malloc.
+      strcpy(block1, "Data in Block 1");    // Copy string into the memory allocated in block1
+      strcpy(block2, "Text from Block 2");  // Copy string into the memory allocated in block2
+
+      // Print the contents of both blocks over UART.
+      // This confirms that memory was correctly allocated and can be accessed.
+      print_uart(block1); 
+      print_uart("\r\n");
+      print_uart(block2); 
+      print_uart("\r\n");
+
+  } else {
+      // If either allocation failed (due to insufficient memory or a bug), print an error message.
+      print_uart("Allocation failed.\r\n");
+  }
+
+  // Free the memory blocks that were previously allocated.
+  // This makes them available again for future calls to heap_alloc.
+  // It's important to always free memory when you're done using it to avoid memory leaks.
+  heap_free(block1);
+  heap_free(block2);
+
+  // Print a confirmation that memory has been freed.
+  print_uart("Blocks freed.\r\n");
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -205,8 +258,9 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_USART2
-                              |RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_USART1
+                              |RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK2;
   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   PeriphClkInit.USBClockSelection = RCC_USBCLKSOURCE_PLL;
@@ -301,6 +355,41 @@ static void MX_SPI1_Init(void)
   /* USER CODE BEGIN SPI1_Init 2 */
 
   /* USER CODE END SPI1_Init 2 */
+
+}
+
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart1.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart1.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
 
 }
 
