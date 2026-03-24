@@ -21,6 +21,18 @@
 #include "stdio.h"
 #include "string.h"
 
+// Task 2
+typedef struct {
+    int16_t acc_raw_x, acc_raw_y, acc_raw_z;
+    float acc_mg_x, acc_mg_y, acc_mg_z;
+    float acc_offset_x, acc_offset_y, acc_offset_z;
+} LSM303_Data;
+
+#define LSM_ADDR 0x33
+#define CTRL_REG1_A 0x20
+#define CTRL_REG4_A 0x23
+#define OUT_X_L_A 0x28
+
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -61,6 +73,13 @@ static void MX_I2C1_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_USB_PCD_Init(void);
+
+// Task 2
+void Init_LSM(void);
+void Read_LSM(LSM303_Data *data);
+void Offset_LSM(LSM303_Data *data);
+void Print_LSM(LSM303_Data *data);
+
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -68,6 +87,49 @@ static void MX_USB_PCD_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+// Task 2
+void Init_LSM(void) {
+    uint8_t settings[2];
+    settings[0] = 0x67;
+    HAL_I2C_Mem_Write(&hi2c1, LSM_ADDR, CTRL_REG1_A, I2C_MEMADD_SIZE_8BIT, &settings[0], 1, 100);
+    settings[0] = 0x00;
+    HAL_I2C_Mem_Write(&hi2c1, LSM_ADDR, CTRL_REG4_A, I2C_MEMADD_SIZE_8BIT, &settings[0], 1, 100);
+}
+
+void Read_LSM(LSM303_Data *data) {
+    uint8_t buffer[6];
+    if(HAL_I2C_Mem_Read(&hi2c1, LSM_ADDR, (OUT_X_L_A | 0x80), I2C_MEMADD_SIZE_8BIT, buffer, 6, 100) == HAL_OK) {
+        data->acc_raw_x = (int16_t)((buffer[1] << 8) | buffer[0]);
+        data->acc_raw_y = (int16_t)((buffer[3] << 8) | buffer[2]);
+        data->acc_raw_z = (int16_t)((buffer[5] << 8) | buffer[4]);
+        data->acc_mg_x = (data->acc_raw_x * 3.9) - data->acc_offset_x;
+        data->acc_mg_y = (data->acc_raw_y * 3.9) - data->acc_offset_y;
+        data->acc_mg_z = (data->acc_raw_z * 3.9) - data->acc_offset_z;
+    }
+}
+
+void Offset_LSM(LSM303_Data *data) {
+    float sumX = 0, sumY = 0, sumZ = 0;
+    int samples = 20;
+    
+    for(int i = 0; i < samples; i++) {
+        Read_LSM(data);
+        sumX += (data->acc_raw_x * 3.9);
+        sumY += (data->acc_raw_y * 3.9);
+        sumZ += (data->acc_raw_z * 3.9);
+        HAL_Delay(20);
+    }
+    
+    data->acc_offset_x = sumX / samples;
+    data->acc_offset_y = sumY / samples;
+    data->acc_offset_z = (sumZ / samples) - 1000.0;
+}
+
+void Print_LSM(LSM303_Data *data) {
+    char msg[100];
+    sprintf(msg, "%.2f, %.2f, %.2f\r\n", data->acc_mg_x, data->acc_mg_y, data->acc_mg_z);
+    HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
+}
 /* USER CODE END 0 */
 
 /**
@@ -111,29 +173,46 @@ int main(void)
   /* USER CODE BEGIN WHILE */
 
   // Task 1
-  uint8_t who_am_i = 0;
-  char msg[50];
-  HAL_StatusTypeDef ret;
+  // uint8_t who_am_i = 0;
+  // char msg[50];
+  // HAL_StatusTypeDef ret;
+  // ret = HAL_I2C_Mem_Read(&hi2c1, (0x33), 0x0F, I2C_MEMADD_SIZE_8BIT, &who_am_i, 1, 100);
 
-  ret = HAL_I2C_Mem_Read(&hi2c1, (0x33 << 1), 0x0F, I2C_MEMADD_SIZE_8BIT, &who_am_i, 1, 100);
+  // Task 2
+  HAL_Init();
+  SystemClock_Config();
+  MX_GPIO_Init();
+  MX_I2C1_Init();
+  MX_USART2_UART_Init();
+  LSM303_Data myLSM = {0};
+  
+  HAL_GPIO_WritePin(GPIOE, CS_I2C_SPI_Pin, GPIO_PIN_SET); 
+  HAL_Delay(100);
 
-  if (ret == HAL_OK) {
-      sprintf(msg, "LSM303AGR WHO_AM_I: 0x%02X\r\n", who_am_i);
-      HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
-      
-      if (who_am_i == 0x33 << 1) {
-          HAL_UART_Transmit(&huart2, (uint8_t*)"LSM303AGR Detected Successfully!\r\n", 34, 100);
-      } else {
-          HAL_UART_Transmit(&huart2, (uint8_t*)"Unexpected ID Received.\r\n", 25, 100);
-      }
-  } else {
-      HAL_UART_Transmit(&huart2, (uint8_t*)"I2C Read Error!\r\n", 17, 100);
-  }
-
+  Init_LSM();
+  Offset_LSM(&myLSM);
   while (1)
   {
     /* USER CODE END WHILE */
-    
+
+    // Task 1
+    // if (ret == HAL_OK) {
+    //   sprintf(msg, "LSM303AGR WHO_AM_I: 0x%02X\r\n", who_am_i);
+    //   HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), 100);
+      
+    //   if (who_am_i == 0x33) {
+    //       HAL_UART_Transmit(&huart2, (uint8_t*)"LSM303AGR Detected Successfully!\r\n", 34, 100);
+    //   } else {
+    //       HAL_UART_Transmit(&huart2, (uint8_t*)"Unexpected ID Received.\r\n", 25, 100);
+    //   }
+    // } else {
+    //   HAL_UART_Transmit(&huart2, (uint8_t*)"I2C Read Error!\r\n", 17, 100);
+    // }
+
+    // Task 2
+    Read_LSM(&myLSM);
+    Print_LSM(&myLSM);
+    HAL_Delay(100);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
