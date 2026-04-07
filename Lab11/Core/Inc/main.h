@@ -49,6 +49,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -117,6 +119,17 @@ void Error_Handler(void);
 #define MEMS_INT2_GPIO_Port GPIOE
 
 /* USER CODE BEGIN Private defines */
+/* LSM303DLHC Accelerometer Addresses */
+#define LSM303_ACC_ADDR (0x19 << 1)  // 8-bit: 0x32
+#define LSM303_CTRL_REG1_A 0x20
+#define LSM303_CTRL_REG4_A 0x23
+#define LSM303_OUT_X_L_A 0x28
+
+/* L3GD20 Gyroscope Addresses */
+#define L3GD20_ADDR 0xD4  // 8-bit write address
+#define L3GD20_CTRL_REG1 0x20
+#define L3GD20_CTRL_REG4 0x23
+#define L3GD20_OUT_X_L 0x28
 
 /* USER CODE END Private defines */
 
