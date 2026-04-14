@@ -306,11 +306,11 @@ static void MX_SPI1_Init(void)
 }
 
 //task 2
-  void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
-    if (htim -> Instance == TIM2) {
-      HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
-    } 
-  }
+  // void HAL_TIM_PeriodElapsedCallback ( TIM_HandleTypeDef *htim) {
+  //   if (htim -> Instance == TIM2) {
+  //     HAL_GPIO_TogglePin (LD3_GPIO_Port , LD3_Pin);
+  //   } 
+  // }
 
   //Task 3
   uint32_t countA = 0;

@@ -152,33 +152,23 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
        
     IMU_Read(&imu_data);
        
-    /* 1. Convert Raw to G-force */
     float ax_g = (float)imu_data.ax / acc_sensitivity;
     float ay_g = (float)imu_data.ay / acc_sensitivity;
     float az_g = (float)imu_data.az / acc_sensitivity;
 
-    /* 2. FIXED ACCEL MATH (Pitch) 
-       Using Y and Z ensures the 'accel_angle' doesn't get stuck at 180 degrees. */
     accel_angle = atan2f(ay_g, az_g) * 180.0f / M_PI;
     
-    // Low-pass filter to remove the vibration noise seen in your graphs
     smooth_accel_angle = (0.8f * smooth_accel_angle) + (0.2f * accel_angle);
        
-    /* 3. GYRO PROCESSING 
-       Subtracting the bias calculated in IMU_Init to stop static drift */
     float corrected_gx = (float)imu_data.gx - gyro_bias_x;
     gyro_rate = corrected_gx / gyro_sensitivity;
        
-    // Deadzone: If the board is vibrating slightly, ignore it
     if (fabsf(gyro_rate) < 0.7f) gyro_rate = 0.0f;
        
-    /* 4. COMPLEMENTARY FILTER 
-       This merges the smooth gyro with the stable accel */
     angle = alpha * (angle + gyro_rate * dt) + (1.0f - alpha) * smooth_accel_angle;
        
-    /* 5. UART Output (Angle, AccelRef, GyroSpeed) */
     char buffer[64];
-    int len = sprintf(buffer, "%.2f, %.2f, %.2f\r\n", angle, smooth_accel_angle, gyro_rate);
+    int len = sprintf(buffer, "Angle: %.2f, Accel Angle: %.2f, Gyro Rate: %.2f\r\n", angle, smooth_accel_angle, gyro_rate);
     HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 10);
   }
 }
@@ -201,7 +191,6 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   MX_SPI1_Init();
-  // MX_USART1_UART_Init();
   MX_TIM2_Init();
   
   /* USER CODE END 1 */

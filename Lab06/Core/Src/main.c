@@ -77,53 +77,53 @@ static void MX_TIM3_Init(void);
 /* USER CODE BEGIN 0 */
 
 // Task 1 and 2
-// static uint32_t captureBuffer[16];
-// static uint32_t lastCapture = 0;
-// static uint8_t  sampleIndex = 0;
+static uint32_t captureBuffer[16];
+static uint32_t lastCapture = 0;
+static uint8_t  sampleIndex = 0;
 static uint8_t  firstEdge   = 1;
 static volatile uint8_t printFlag = 0;
 static volatile float measuredFreq = 0.0f;
 // Task 4
-static uint32_t ic_val1 = 0;
-static uint32_t ic_val2 = 0;
-static uint32_t period  = 0;
+// static uint32_t ic_val1 = 0;
+// static uint32_t ic_val2 = 0;
+// static uint32_t period  = 0;
 
 // Task 1
-// void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-// {
-//     if (GPIO_Pin != GPIO_PIN_8) return;
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+    if (GPIO_Pin != GPIO_PIN_8) return;
 
-//     if (firstEdge)
-//     {
-//         __HAL_TIM_SET_COUNTER(&htim2, 0);
-//         HAL_TIM_Base_Start(&htim2);
-//         lastCapture = 0;
-//         firstEdge   = 0;
-//     }
-//     else
-//     {
-//         uint32_t now = __HAL_TIM_GET_COUNTER(&htim2);
+    if (firstEdge)
+    {
+        __HAL_TIM_SET_COUNTER(&htim2, 0);
+        HAL_TIM_Base_Start(&htim2);
+        lastCapture = 0;
+        firstEdge   = 0;
+    }
+    else
+    {
+        uint32_t now = __HAL_TIM_GET_COUNTER(&htim2);
 
-//         uint32_t period;
-//         if (now >= lastCapture)
-//             period = now - lastCapture;
-//         else
-//             period = (0xFFFFFFFFUL - lastCapture) + now + 1UL;
+        uint32_t period;
+        if (now >= lastCapture)
+            period = now - lastCapture;
+        else
+            period = (0xFFFFFFFFUL - lastCapture) + now + 1UL;
 
-//         captureBuffer[sampleIndex++] = period;
-//         lastCapture = now;
+        captureBuffer[sampleIndex++] = period;
+        lastCapture = now;
 
-//         if (sampleIndex >= 16)HAL_Delay(100);
+        if (sampleIndex >= 16)HAL_Delay(100);
 
   
-//         {
-//             sampleIndex = 0;
-//             firstEdge   = 1;
-//             HAL_TIM_Base_Stop(&htim2);
-//             printFlag   = 1;
-//         }
-//     }
-// }
+        {
+            sampleIndex = 0;
+            firstEdge   = 1;
+            HAL_TIM_Base_Stop(&htim2);
+            printFlag   = 1;
+        }
+    }
+}
 
 // Task 2
 // void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
@@ -157,35 +157,35 @@ static uint32_t period  = 0;
 // }
 
 // Task 4
-void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
-{
-    if (htim->Instance != TIM3) return;
-    if (htim->Channel  != HAL_TIM_ACTIVE_CHANNEL_1) return;
+// void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+// {
+//     if (htim->Instance != TIM3) return;
+//     if (htim->Channel  != HAL_TIM_ACTIVE_CHANNEL_1) return;
 
-    uint32_t now = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
+//     uint32_t now = HAL_TIM_ReadCapturedValue(htim, TIM_CHANNEL_1);
 
-    if (firstEdge)
-    {
-        ic_val1 = now;
-        firstEdge = 0;
-    }
-    else
-    {
-        ic_val2 = now;
-        if (ic_val2 >= ic_val1)
-            period = ic_val2 - ic_val1;
-        else
-            period = (0xFFFFUL - ic_val1) + ic_val2 + 1UL;
+//     if (firstEdge)
+//     {
+//         ic_val1 = now;
+//         firstEdge = 0;
+//     }
+//     else
+//     {
+//         ic_val2 = now;
+//         if (ic_val2 >= ic_val1)
+//             period = ic_val2 - ic_val1;
+//         else
+//             period = (0xFFFFUL - ic_val1) + ic_val2 + 1UL;
 
-        if (period > 0)
-        {
-            measuredFreq = 1000000.0f / (float)period;
-            printFlag    = 1;
-        }
+//         if (period > 0)
+//         {
+//             measuredFreq = 1000000.0f / (float)period;
+//             printFlag    = 1;
+//         }
 
-        ic_val1 = ic_val2;
-    }
-}
+//         ic_val1 = ic_val2;
+//     }
+// }
 /* USER CODE END 0 */
 
 /**
@@ -254,25 +254,25 @@ int main(void)
   {
     /* USER CODE END WHILE */
     //Task 1
-    // HAL_Delay(100); 
+    HAL_Delay(100); 
 
-    // if (printFlag)
-    // {
-    //   printFlag = 0;
-    //   uint64_t sum = 0;
-    //   for (int i = 0; i < 16; i++){
-    //     sum += captureBuffer[i];
-    //   }
+    if (printFlag)
+    {
+      printFlag = 0;
+      uint64_t sum = 0;
+      for (int i = 0; i < 16; i++){
+        sum += captureBuffer[i];
+      }
 
-    //   float avgPeriod = (float)sum / (float)16;
-    //   float frequency = 4800000.0f / avgPeriod;
-    //   float errHigh = 4800000.0f / (avgPeriod - 1.0f);
-    //   float errLow = 4800000.0f / (avgPeriod + 1.0f);
-    //   float errorMargin = (errHigh - errLow) / 2.0f;
+      float avgPeriod = (float)sum / (float)16;
+      float frequency = 4800000.0f / avgPeriod;
+      float errHigh = 4800000.0f / (avgPeriod - 1.0f);
+      float errLow = 4800000.0f / (avgPeriod + 1.0f);
+      float errorMargin = (errHigh - errLow) / 2.0f;
 
-    //   snprintf(msg, sizeof(msg), "Freq: %.2f Hz +/- %.4f Hz\r\n", frequency, errorMargin);
-    //   HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
-    // }
+      snprintf(msg, sizeof(msg), "Freq: %.2f Hz +/- %.4f Hz\r\n", frequency, errorMargin);
+      HAL_UART_Transmit(&huart2, (uint8_t*)msg, strlen(msg), HAL_MAX_DELAY);
+    }
 
     //Task 2
     // HAL_Delay(100);
@@ -312,14 +312,14 @@ int main(void)
     // }
     
     //Task 4
-    if (printFlag)
-    {
-    	printFlag = 0;
-    	float rpm = 0.0f; 
-    	rpm = (60.0f * measuredFreq) / 20.0f;
-    	int len = snprintf(msg, sizeof(msg), "Freq: %.2f Hz  RPM: %.2f\r\n", measuredFreq, rpm);
-    	HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
-    }
+    // if (printFlag)
+    // {
+    // 	printFlag = 0;
+    // 	float rpm = 0.0f; 
+    // 	rpm = (60.0f * measuredFreq) / 20.0f;
+    // 	int len = snprintf(msg, sizeof(msg), "Freq: %.2f Hz  RPM: %.2f\r\n", measuredFreq, rpm);
+    // 	HAL_UART_Transmit(&huart2, (uint8_t*)msg, len, HAL_MAX_DELAY);
+    // }
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
