@@ -278,7 +278,21 @@ int main(void)
   
   /* Start timer interrupt */
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);/* TEST CODE: Drive motors forward at 50% speed for 2 seconds, 
+       then stop for 2 seconds. 
+    */
+    
+    // Test Forward
+    Control_Motors(500.0f); 
+    HAL_Delay(2000);
+    
+    // Test Stop
+    Control_Motors(0.0f);
+    HAL_Delay(2000);
+    
+    // Test Backward
+    Control_Motors(-500.0f);
+    HAL_Delay(2000);
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
@@ -287,6 +301,35 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+    // /* TEST CODE: Drive motors forward at 50% speed for 2 seconds, 
+    //    then stop for 2 seconds. 
+    // */
+    
+    // // Test Forward
+    Control_Motors(500.0f); 
+    HAL_Delay(2000);
+    
+    // // Test Stop
+    Control_Motors(0.0f);
+    HAL_Delay(2000);
+    
+    // // Test Backward
+    Control_Motors(-500.0f);
+    HAL_Delay(2000);
+
+
+
+    // // Force Forward
+    // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET);   // Should be 3.3V
+    // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_RESET); // Should be 0V
+    // __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 800);    // High PWM
+    // HAL_Delay(5000); // Wait 5 seconds to measure with multimeter
+    
+    // // Force Backward
+    // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_RESET); // Should be 0V
+    // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_SET);   // Should be 3.3V
+    // HAL_Delay(5000);
+
 
     /* USER CODE BEGIN 3 */
   }
