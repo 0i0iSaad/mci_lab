@@ -77,9 +77,9 @@ static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN 0 */
 
 // Task 2
-float Kp = 25.0f;  
-float Ki = 0.1f;   
-float Kd = 0.65f;   
+float Kp = 60.0f;  
+float Ki = 0.0f;   
+float Kd = 0.0f;   
 
 float setpoint = 0.0f; 
 float error, last_error, integral;
@@ -94,8 +94,10 @@ typedef struct {
 float gyro_bias_x = 0.0f;
 float angle = 0.0f; 
 float dt = 0.01f; 
-float alpha = 0.98f; 
+float alpha = 0.995f; 
 float smooth_accel_angle = 0.0f;
+float last_derivative = 0.0f;
+float derivative_alpha = 0.7f;
 
 float acc_sensitivity = 16384.0f;  
 float gyro_sensitivity = 114.285f; 
@@ -141,87 +143,122 @@ void IMU_Init(void) {
   L3GD20_WriteReg(L3GD20_CTRL_REG4, 0x00);    
 
   int32_t total_gx = 0;
+  float total_angle = 0.0f;
   IMU_Data_t temp_data;
     
-  HAL_Delay(100); 
+  HAL_Delay(500); // Give the sensor a moment to stabilize
     
   for(int i = 0; i < 200; i++) {
     IMU_Read(&temp_data); 
+    
+    // Sum Gyro for bias
     total_gx += temp_data.gx;
-    HAL_Delay(2); 
+    
+    // atan2f returns radians, converted to degrees
+    float current_acc_angle = atan2f((float)temp_data.ax, (float)temp_data.az) * 180.0f / M_PI;
+    total_angle += current_acc_angle;
+    
+    HAL_Delay(10); 
   }
     
   gyro_bias_x = (float)total_gx / 200.0f; 
+  setpoint = total_angle / 200.0f; // New averaged setpoint
 }
 
 // Task 2
+#define MOTOR_MIN 120 
+
 void Control_Motors(float output) {
-    uint32_t pwm_val = (uint32_t)fabsf(output);
-    if (pwm_val > 999) pwm_val = 999;
+  float final_output = output;
+  
+  if (fabsf(output) < 15.0f) { 
+    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0);
+    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 0);
+    return; 
+  }
 
-    if (output > 0) {
-        // Forward / Clockwise rotation
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET);   // Right Dir 1
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_RESET); // Right Dir 2
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET);   // Left Dir 1
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_RESET); // Left Dir 2
-    } 
-    else if (output < 0) {
-        // Backward / Counter-Clockwise rotation
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_RESET);
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_SET);
-    }
-    else {
-        // Stop
-        HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3, GPIO_PIN_RESET);
-        pwm_val = 0;
-    }
+  // Apply Deadzone logic
+  if (final_output > 0) final_output += MOTOR_MIN;
+  else if (final_output < 0) final_output -= MOTOR_MIN;
 
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, pwm_val); // Right Motor (PC6)
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, pwm_val); // Left Motor (PA4)
+  // Constrain to Timer 3 Period (999)
+  if (final_output > 999) final_output = 999;
+  if (final_output < -999) final_output = -999;
+
+  uint32_t pwm_val = (uint32_t)fabsf(final_output);
+
+  //Forcing the same PWM to both channels explicitly
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, pwm_val);
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, pwm_val);
+
+  if (final_output > 0) {
+    // --- FORWARD MOVEMENT ---
+    // Right Motor: Set Forward
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_SET);
+    
+    // Left Motor: Set Forward
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET); // Changed from SET
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_RESET);   // Changed from RESET
+  } else {
+    // --- BACKWARD MOVEMENT ---
+    // Right Motor: Set Backward
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_RESET);
+    
+    // Left Motor: Set Backward 
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_RESET);   // Changed from RESET
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_SET); // Changed from SET
+  }
+
+  // __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, pwm_val);
+  // __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, pwm_val);
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
-  // Task 1
   if (htim->Instance == TIM2) {
     static IMU_Data_t imu_data;
-    float accel_angle, gyro_rate;
-       
     IMU_Read(&imu_data);
        
-    float ax_g = (float)imu_data.ax / acc_sensitivity;
-    float ay_g = (float)imu_data.ay / acc_sensitivity;
-    float az_g = (float)imu_data.az / acc_sensitivity;
-
-    accel_angle = atan2f(ay_g, az_g) * 180.0f / M_PI;
+    // 1. Calculate Angle (Using AX and AZ for vertical mount)
+    float accel_angle = atan2f((float)imu_data.ax, (float)imu_data.az) * 180.0f / M_PI;
+    float gyro_rate = ((float)imu_data.gx - gyro_bias_x) / 131.0f; 
     
-    smooth_accel_angle = (0.8f * smooth_accel_angle) + (0.2f * accel_angle);
-       
-    float corrected_gx = (float)imu_data.gx - gyro_bias_x;
-    gyro_rate = corrected_gx / gyro_sensitivity;
-       
-    if (fabsf(gyro_rate) < 0.7f) gyro_rate = 0.0f;
-       
-    angle = alpha * (angle + gyro_rate * dt) + (1.0f - alpha) * smooth_accel_angle;
-       
-    // char buffer[64];
-    // int len = sprintf(buffer, "Angle: %.2f, Accel Angle: %.2f, Gyro Rate: %.2f\r\n", angle, smooth_accel_angle, gyro_rate);
-    // HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 10);
+    // Complementary Filter
+    angle = alpha * (angle + gyro_rate * dt) + (1.0f - alpha) * accel_angle;
 
-    // Task 2
-    error = setpoint - angle;
-    integral += error * dt;
+    // 2. Safety Check
+    if (fabsf(angle) > 60.0f) {
+      Control_Motors(0);
+      integral = 0;
+      return;
+    }
+
+    // 3. PID Math
+    float error = setpoint - angle;
     
-    // Anti-windup: limit the integral term
-    if (integral > 100.0f) integral = 100.0f;
-    if (integral < -100.0f) integral = -100.0f;
+    // Only integrate if the error is small (prevents massive jumps)
+    if (fabsf(error) < 10.0f) {
+        integral += error * dt;
+    } else {
+        integral = 0; 
+    // Calculate current accelerometer angle for setpoint average
+    }
+    
+    // Anti-windup
+    if (integral > 150.0f) integral = 150.0f;
+    if (integral < -150.0f) integral = -150.0f; 
 
-    float derivative = (error - last_error) / dt;
-    pid_output = (Kp * error) + (Ki * integral) + (Kd * derivative);
+    // Filtered Derivative (This stops the "rapid vibration")
+    float raw_derivative = (error - last_error) / dt;
+    float filtered_derivative = (derivative_alpha * last_derivative) + ((1.0f - derivative_alpha) * raw_derivative);
+    
+    float pid_output = (Kp * error) + (Ki * integral) + (Kd * filtered_derivative);
+    
     last_error = error;
+    last_derivative = filtered_derivative;
 
+    // 4. Send to Motors
     Control_Motors(pid_output);
   }
 }
@@ -278,21 +315,8 @@ int main(void)
   
   /* Start timer interrupt */
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);/* TEST CODE: Drive motors forward at 50% speed for 2 seconds, 
-       then stop for 2 seconds. 
-    */
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
     
-    // Test Forward
-    Control_Motors(500.0f); 
-    HAL_Delay(2000);
-    
-    // Test Stop
-    Control_Motors(0.0f);
-    HAL_Delay(2000);
-    
-    // Test Backward
-    Control_Motors(-500.0f);
-    HAL_Delay(2000);
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
@@ -305,17 +329,6 @@ int main(void)
     //    then stop for 2 seconds. 
     // */
     
-    // // Test Forward
-    Control_Motors(500.0f); 
-    HAL_Delay(2000);
-    
-    // // Test Stop
-    Control_Motors(0.0f);
-    HAL_Delay(2000);
-    
-    // // Test Backward
-    Control_Motors(-500.0f);
-    HAL_Delay(2000);
 
 
 
@@ -493,9 +506,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 7200;
+  htim2.Init.Prescaler = 4799;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 1000;
+  htim2.Init.Period = 99;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
