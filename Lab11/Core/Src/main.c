@@ -18,13 +18,12 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stdio.h"
-#include "string.h"
-#include <math.h>
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "stdio.h"
+#include "string.h"
+#include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -81,7 +80,7 @@ float Kp = 60.0f;
 float Ki = 0.0f;   
 float Kd = 0.0f;   
 
-float setpoint = 0.0f; 
+float setpoint = -4.4f; 
 float error, last_error, integral;
 float pid_output;
 
@@ -91,10 +90,10 @@ typedef struct {
   int16_t gx, gy, gz; // gyroscope raw data
 } IMU_Data_t;
 
-float gyro_bias_x = 0.0f;
+float gyro_bias_y = 0.0f;
 float angle = 0.0f; 
 float dt = 0.01f; 
-float alpha = 0.995f; 
+float alpha = 0.98f; 
 float smooth_accel_angle = 0.0f;
 float last_derivative = 0.0f;
 float derivative_alpha = 0.7f;
@@ -143,26 +142,17 @@ void IMU_Init(void) {
   L3GD20_WriteReg(L3GD20_CTRL_REG4, 0x00);    
 
   int32_t total_gx = 0;
-  float total_angle = 0.0f;
   IMU_Data_t temp_data;
     
-  HAL_Delay(500); // Give the sensor a moment to stabilize
+  HAL_Delay(100); 
     
   for(int i = 0; i < 200; i++) {
     IMU_Read(&temp_data); 
-    
-    // Sum Gyro for bias
     total_gx += temp_data.gx;
-    
-    // atan2f returns radians, converted to degrees
-    float current_acc_angle = atan2f((float)temp_data.ax, (float)temp_data.az) * 180.0f / M_PI;
-    total_angle += current_acc_angle;
-    
-    HAL_Delay(10); 
+    HAL_Delay(2); 
   }
     
-  gyro_bias_x = (float)total_gx / 200.0f; 
-  setpoint = total_angle / 200.0f; // New averaged setpoint
+  gyro_bias_y = (float)total_gx / 200.0f; 
 }
 
 // Task 2
@@ -170,12 +160,6 @@ void IMU_Init(void) {
 
 void Control_Motors(float output) {
   float final_output = output;
-  
-  if (fabsf(output) < 15.0f) { 
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0);
-    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, 0);
-    return; 
-  }
 
   // Apply Deadzone logic
   if (final_output > 0) final_output += MOTOR_MIN;
@@ -221,14 +205,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
     IMU_Read(&imu_data);
        
     // 1. Calculate Angle (Using AX and AZ for vertical mount)
-    float accel_angle = atan2f((float)imu_data.ax, (float)imu_data.az) * 180.0f / M_PI;
-    float gyro_rate = ((float)imu_data.gx - gyro_bias_x) / 131.0f; 
+    float gyro_rate = ((float)imu_data.gy - gyro_bias_y) * 0.00875f; 
+    float accX = (float)imu_data.ax / 16384.0f;
+    float accZ = (float)imu_data.az / 16384.0f;
+    float accel_angle = atan2f(accX, accZ) * 57.2958f;
     
     // Complementary Filter
     angle = alpha * (angle + gyro_rate * dt) + (1.0f - alpha) * accel_angle;
 
     // 2. Safety Check
-    if (fabsf(angle) > 60.0f) {
+    if (fabsf(angle) > 45.0f) {
       Control_Motors(0);
       integral = 0;
       return;
@@ -242,12 +228,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
         integral += error * dt;
     } else {
         integral = 0; 
-    // Calculate current accelerometer angle for setpoint average
     }
     
     // Anti-windup
     if (integral > 150.0f) integral = 150.0f;
-    if (integral < -150.0f) integral = -150.0f; 
+    if (integral < -150.0f) integral = -150.0f;
 
     // Filtered Derivative (This stops the "rapid vibration")
     float raw_derivative = (error - last_error) / dt;
@@ -260,6 +245,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
 
     // 4. Send to Motors
     Control_Motors(pid_output);
+
+    char buffer[64];
+
+    int len = sprintf(buffer, "%.2f, %.2f, %.2f\r\n", angle, accel_angle, gyro_rate);
+    HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 10); 
   }
 }
 
@@ -325,24 +315,6 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-    // /* TEST CODE: Drive motors forward at 50% speed for 2 seconds, 
-    //    then stop for 2 seconds. 
-    // */
-    
-
-
-
-    // // Force Forward
-    // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET);   // Should be 3.3V
-    // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_RESET); // Should be 0V
-    // __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 800);    // High PWM
-    // HAL_Delay(5000); // Wait 5 seconds to measure with multimeter
-    
-    // // Force Backward
-    // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_RESET); // Should be 0V
-    // HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_SET);   // Should be 3.3V
-    // HAL_Delay(5000);
-
 
     /* USER CODE BEGIN 3 */
   }
@@ -506,9 +478,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 4799;
+  htim2.Init.Prescaler = 47;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 99;
+  htim2.Init.Period = 9999;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -544,6 +516,7 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 0 */
 
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
 
@@ -556,6 +529,15 @@ static void MX_TIM3_Init(void)
   htim3.Init.Period = 999;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
   if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
   {
     Error_Handler();
