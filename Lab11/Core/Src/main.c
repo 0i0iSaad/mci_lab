@@ -76,11 +76,11 @@ static void MX_USART2_UART_Init(void);
 /* USER CODE BEGIN 0 */
 
 // Task 2
-float Kp = 60.0f;  
+float Kp = 40.0f;  
 float Ki = 0.0f;   
 float Kd = 0.0f;   
 
-float setpoint = -4.4f; 
+float setpoint = -2.1f; 
 float error, last_error, integral;
 float pid_output;
 
@@ -88,7 +88,11 @@ float pid_output;
 typedef struct {
   int16_t ax, ay, az; // accelerometer raw data
   int16_t gx, gy, gz; // gyroscope raw data
+  float acc_offset_x;
+  float acc_offset_z;
 } IMU_Data_t;
+
+IMU_Data_t imu_data;
 
 float gyro_bias_y = 0.0f;
 float angle = 0.0f; 
@@ -96,10 +100,7 @@ float dt = 0.01f;
 float alpha = 0.98f; 
 float smooth_accel_angle = 0.0f;
 float last_derivative = 0.0f;
-float derivative_alpha = 0.7f;
-
-float acc_sensitivity = 16384.0f;  
-float gyro_sensitivity = 114.285f; 
+float derivative_alpha = 0.7f; 
 
 void LSM303_WriteReg(uint8_t reg, uint8_t value) {
   uint8_t data[2] = {reg, value};
@@ -153,6 +154,25 @@ void IMU_Init(void) {
   }
     
   gyro_bias_y = (float)total_gx / 200.0f; 
+
+  float sumX = 0, sumZ = 0;
+  int samples = 100; 
+  IMU_Data_t temp;
+
+  HAL_Delay(500); // Wait for sensor to settle
+
+  for(int i = 0; i < samples; i++) {
+    IMU_Read(&temp);
+    sumX += (float)temp.ax;
+    sumZ += (float)temp.az;
+    HAL_Delay(5);
+  }
+
+  // Calculate average offsets
+  imu_data.acc_offset_x = sumX / (float)samples;
+  
+  // Subtract 1g (16384) from Z because it should be 1.0g when upright
+  imu_data.acc_offset_z = (sumZ / (float)samples) - 16384.0f;
 }
 
 // Task 2
@@ -201,20 +221,30 @@ void Control_Motors(float output) {
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
   if (htim->Instance == TIM2) {
-    static IMU_Data_t imu_data;
     IMU_Read(&imu_data);
        
-    // 1. Calculate Angle (Using AX and AZ for vertical mount)
+    // --- 1. GYRO CALCULATION (Keep this!) ---
+    // 0.00875f comes from your datasheet for +/-245 dps sensitivity
     float gyro_rate = ((float)imu_data.gy - gyro_bias_y) * 0.00875f; 
-    float accX = (float)imu_data.ax / 16384.0f;
-    float accZ = (float)imu_data.az / 16384.0f;
-    float accel_angle = atan2f(accX, accZ) * 57.2958f;
+
+    // --- 2. ACCELEROMETER CALCULATION (Updated with Offsets) ---
+    // Apply the offsets calculated during IMU_Init
+    float cal_ax = (float)imu_data.ax - imu_data.acc_offset_x;
+    float cal_az = (float)imu_data.az - imu_data.acc_offset_z;
+
+    // Convert to g-force units using 16384.0f
+    float accX_g = cal_ax / 16384.0f;
+    float accZ_g = cal_az / 16384.0f;
     
-    // Complementary Filter
+    // Calculate the angle based on gravity
+    float accel_angle = atan2f(accX_g, accZ_g) * 57.2958f; 
+    
+    // --- 3. SENSOR FUSION (Complementary Filter) ---
+    // Gyro handles fast motion; Accel handles long-term drift
     angle = alpha * (angle + gyro_rate * dt) + (1.0f - alpha) * accel_angle;
 
     // 2. Safety Check
-    if (fabsf(angle) > 45.0f) {
+    if (fabsf(angle) > 60.0f) {
       Control_Motors(0);
       integral = 0;
       return;
