@@ -33,7 +33,14 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+#define LSM303_ACC_ADDR (0x19 << 1) // 0x32
+#define LSM303_CTRL_REG1_A 0x20
+#define LSM303_CTRL_REG4_A 0x23
+#define LSM303_OUT_X_L_A 0x28
 
+#define L3GD20_CTRL_REG1 0x20
+#define L3GD20_CTRL_REG4 0x23
+#define L3GD20_OUT_X_L 0x28
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -77,10 +84,10 @@ static void MX_USART2_UART_Init(void);
 
 // Task 2
 float Kp = 40.0f;  
-float Ki = 0.0f;   
-float Kd = 0.0f;   
+float Ki = 0.08f;   
+float Kd = 0.25f;   
 
-float setpoint = -2.1f; 
+float setpoint = 0.0f; 
 float error, last_error, integral;
 float pid_output;
 
@@ -100,7 +107,8 @@ float dt = 0.01f;
 float alpha = 0.98f; 
 float smooth_accel_angle = 0.0f;
 float last_derivative = 0.0f;
-float derivative_alpha = 0.7f; 
+float derivative_alpha = 0.9f; 
+float filtered_derivative = 0.0f;
 
 void LSM303_WriteReg(uint8_t reg, uint8_t value) {
   uint8_t data[2] = {reg, value};
@@ -137,149 +145,148 @@ void IMU_Read(IMU_Data_t* data) {
 }
 
 void IMU_Init(void) {
+  // 1. Initialize Hardware Registers
   LSM303_WriteReg(LSM303_CTRL_REG1_A, 0x27); 
   LSM303_WriteReg(LSM303_CTRL_REG4_A, 0x00); 
   L3GD20_WriteReg(L3GD20_CTRL_REG1, 0x0F);    
   L3GD20_WriteReg(L3GD20_CTRL_REG4, 0x00);    
 
+  HAL_Delay(500); // Let sensors settle
+
+  // 2. Hardware Bias Calibration (Gyro & Accel Offsets)
   int32_t total_gx = 0;
-  IMU_Data_t temp_data;
-    
-  HAL_Delay(100); 
-    
+  float sumX = 0, sumZ = 0;
+  IMU_Data_t temp;
+
   for(int i = 0; i < 200; i++) {
-    IMU_Read(&temp_data); 
-    total_gx += temp_data.gx;
+    IMU_Read(&temp); 
+    total_gx += temp.gx;
+    sumX += (float)temp.ax;
+    sumZ += (float)temp.az;
     HAL_Delay(2); 
   }
     
   gyro_bias_y = (float)total_gx / 200.0f; 
+  imu_data.acc_offset_x = sumX / 200.0f;
+  imu_data.acc_offset_z = (sumZ / 200.0f) - 16384.0f;
 
-  float sumX = 0, sumZ = 0;
-  int samples = 100; 
-  IMU_Data_t temp;
+  // 3. Setpoint Sampling Phase
+  // IMPORTANT: The user must hold the robot at the perfect balance point NOW.
+  float total_angle = 0.0f;
+  float current_angle = 0.0f; 
+  int sample_count = 500; // Sample for ~1 second
 
-  HAL_Delay(500); // Wait for sensor to settle
-
-  for(int i = 0; i < samples; i++) {
+  for(int i = 0; i < sample_count; i++) {
     IMU_Read(&temp);
-    sumX += (float)temp.ax;
-    sumZ += (float)temp.az;
-    HAL_Delay(5);
+    
+    // Calculate instantaneous angle using the same math as your ISR
+    float gyro_rate = ((float)temp.gy - gyro_bias_y) * 0.00875f; 
+    float accX_g = ((float)temp.ax - imu_data.acc_offset_x) / 16384.0f;
+    float accZ_g = ((float)temp.az - imu_data.acc_offset_z) / 16384.0f;
+    float accel_angle = atan2f(accX_g, accZ_g) * 57.2958f; 
+    
+    // Complementary Filter
+    current_angle = alpha * (current_angle + gyro_rate * dt) + (1.0f - alpha) * accel_angle;
+    
+    total_angle += current_angle;
+    HAL_Delay(2); // Match your dt roughly
   }
 
-  // Calculate average offsets
-  imu_data.acc_offset_x = sumX / (float)samples;
+  setpoint = total_angle / (float)sample_count;
   
-  // Subtract 1g (16384) from Z because it should be 1.0g when upright
-  imu_data.acc_offset_z = (sumZ / (float)samples) - 16384.0f;
+  // Initialize the global angle to the setpoint to prevent a jump at start
+  angle = setpoint; 
 }
 
 // Task 2
-#define MOTOR_MIN 120 
+#define MOTOR_MIN 60
+#define MOTOR_MAX 999
+#define DEADBAND 0.4
 
 void Control_Motors(float output) {
   float final_output = output;
 
-  // Apply Deadzone logic
-  if (final_output > 0) final_output += MOTOR_MIN;
-  else if (final_output < 0) final_output -= MOTOR_MIN;
+  // Optimized Soft Deadzone
+  if (fabsf(final_output) > 0.1f) { 
+      if (final_output > 0) final_output += MOTOR_MIN;
+      else if (final_output < 0) final_output -= MOTOR_MIN;
+  } else {
+      final_output = 0; 
+  }
 
-  // Constrain to Timer 3 Period (999)
-  if (final_output > 999) final_output = 999;
-  if (final_output < -999) final_output = -999;
+  // Constrain
+  if (final_output > MOTOR_MAX) final_output = MOTOR_MAX;
+  if (final_output < -MOTOR_MAX) final_output = -MOTOR_MAX;
 
   uint32_t pwm_val = (uint32_t)fabsf(final_output);
-
-  //Forcing the same PWM to both channels explicitly
   __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, pwm_val);
   __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, pwm_val);
 
-  if (final_output > 0) {
-    // --- FORWARD MOVEMENT ---
-    // Right Motor: Set Forward
+  // Direction Logic
+  if (final_output >= 0) { 
     HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_RESET);
     HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_SET);
-    
-    // Left Motor: Set Forward
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET); // Changed from SET
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_RESET);   // Changed from RESET
-  } else {
-    // --- BACKWARD MOVEMENT ---
-    // Right Motor: Set Backward
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_RESET);
+  } else { 
     HAL_GPIO_WritePin(GPIOD, GPIO_PIN_0, GPIO_PIN_SET);
     HAL_GPIO_WritePin(GPIOD, GPIO_PIN_1, GPIO_PIN_RESET);
-    
-    // Left Motor: Set Backward 
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_RESET);   // Changed from RESET
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_SET); // Changed from SET
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_2, GPIO_PIN_RESET);
+    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_SET);
   }
-
-  // __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, pwm_val);
-  // __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2, pwm_val);
 }
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
   if (htim->Instance == TIM2) {
     IMU_Read(&imu_data);
        
-    // --- 1. GYRO CALCULATION (Keep this!) ---
-    // 0.00875f comes from your datasheet for +/-245 dps sensitivity
     float gyro_rate = ((float)imu_data.gy - gyro_bias_y) * 0.00875f; 
-
-    // --- 2. ACCELEROMETER CALCULATION (Updated with Offsets) ---
-    // Apply the offsets calculated during IMU_Init
-    float cal_ax = (float)imu_data.ax - imu_data.acc_offset_x;
-    float cal_az = (float)imu_data.az - imu_data.acc_offset_z;
-
-    // Convert to g-force units using 16384.0f
-    float accX_g = cal_ax / 16384.0f;
-    float accZ_g = cal_az / 16384.0f;
-    
-    // Calculate the angle based on gravity
+    float accX_g = ((float)imu_data.ax - imu_data.acc_offset_x) / 16384.0f;
+    float accZ_g = ((float)imu_data.az - imu_data.acc_offset_z) / 16384.0f;
     float accel_angle = atan2f(accX_g, accZ_g) * 57.2958f; 
     
-    // --- 3. SENSOR FUSION (Complementary Filter) ---
-    // Gyro handles fast motion; Accel handles long-term drift
     angle = alpha * (angle + gyro_rate * dt) + (1.0f - alpha) * accel_angle;
 
-    // 2. Safety Check
-    if (fabsf(angle) > 60.0f) {
+    // Safety Fall-over Stop
+    if (fabsf(angle) > 50.0f) {
       Control_Motors(0);
       integral = 0;
       return;
     }
 
-    // 3. PID Math
-    float error = setpoint - angle;
+    /* --- PID Calculation --- */
+    error = setpoint - angle;
     
-    // Only integrate if the error is small (prevents massive jumps)
-    if (fabsf(error) < 10.0f) {
+    // 1. Center Deadband (Stops the tiny jitters)
+    if (fabsf(error) < DEADBAND) {
+        error = 0;
+        integral = 0;
+    }
+
+    // 2. Integral with anti-windup
+    if (fabsf(error) < 5.0f && error != 0) {
         integral += error * dt;
     } else {
         integral = 0; 
     }
-    
-    // Anti-windup
     if (integral > 150.0f) integral = 150.0f;
     if (integral < -150.0f) integral = -150.0f;
 
-    // Filtered Derivative (This stops the "rapid vibration")
+    // 3. Smoothed Derivative
     float raw_derivative = (error - last_error) / dt;
-    float filtered_derivative = (derivative_alpha * last_derivative) + ((1.0f - derivative_alpha) * raw_derivative);
+    filtered_derivative = (derivative_alpha * last_derivative) + ((1.0f - derivative_alpha) * raw_derivative);
     
-    float pid_output = (Kp * error) + (Ki * integral) + (Kd * filtered_derivative);
+    pid_output = (Kp * error) + (Ki * integral) + (Kd * filtered_derivative);
     
     last_error = error;
     last_derivative = filtered_derivative;
 
-    // 4. Send to Motors
     Control_Motors(pid_output);
 
-    char buffer[64];
+    // char buffer[64];
 
-    int len = sprintf(buffer, "%.2f, %.2f, %.2f\r\n", angle, accel_angle, gyro_rate);
-    HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 10); 
+    // int len = sprintf(buffer, "%.2f, %.2f, %.2f\r\n", angle, accel_angle, gyro_rate);
+    // HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 10); 
   }
 }
 
@@ -295,14 +302,6 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
-  //TASK 1
-  HAL_Init();
-  SystemClock_Config();
-  MX_GPIO_Init();
-  MX_I2C1_Init();
-  MX_SPI1_Init();
-  MX_TIM2_Init();
-  
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -814,3 +813,4 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
