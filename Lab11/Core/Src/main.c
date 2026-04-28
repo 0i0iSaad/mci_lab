@@ -75,6 +75,7 @@ static void MX_TIM2_Init(void);
 static void MX_TIM3_Init(void);
 static void MX_TIM4_Init(void);
 static void MX_USART2_UART_Init(void);
+float Kalman_GetAngle(float newAngle, float newRate, float dt);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -109,6 +110,16 @@ float smooth_accel_angle = 0.0f;
 float last_derivative = 0.0f;
 float derivative_alpha = 0.9f; 
 float filtered_derivative = 0.0f;
+
+// Kalman Filter Variables
+// float Q_angle = 0.001f;   // Process noise variance for the angle
+// float Q_bias = 0.003f;    // Process noise variance for the gyro bias
+// float R_measure = 0.03f;  // Measurement noise variance (trust in accelerometer)
+
+// float k_angle = 0.0f;     // Calculated angle
+// float k_bias = 0.0f;      // Calculated gyro bias
+
+float P[2][2] = {{0, 0}, {0, 0}};
 
 void LSM303_WriteReg(uint8_t reg, uint8_t value) {
   uint8_t data[2] = {reg, value};
@@ -158,7 +169,7 @@ void IMU_Init(void) {
   float sumX = 0, sumZ = 0;
   IMU_Data_t temp;
 
-  for(int i = 0; i < 200; i++) {
+  for(int i = 0; i < 500; i++) {
     IMU_Read(&temp); 
     total_gx += temp.gx;
     sumX += (float)temp.ax;
@@ -166,9 +177,9 @@ void IMU_Init(void) {
     HAL_Delay(2); 
   }
     
-  gyro_bias_y = (float)total_gx / 200.0f; 
-  imu_data.acc_offset_x = sumX / 200.0f;
-  imu_data.acc_offset_z = (sumZ / 200.0f) - 16384.0f;
+  gyro_bias_y = (float)total_gx / 500.0f; 
+  imu_data.acc_offset_x = (sumX / 500.0f);
+  imu_data.acc_offset_z = (sumZ / 500.0f);
 
   // 3. Setpoint Sampling Phase
   // IMPORTANT: The user must hold the robot at the perfect balance point NOW.
@@ -241,14 +252,15 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
     IMU_Read(&imu_data);
        
     float gyro_rate = ((float)imu_data.gy - gyro_bias_y) * 0.00875f; 
-    float accX_g = ((float)imu_data.ax - imu_data.acc_offset_x) / 16384.0f;
+    float accX_g = ((float)imu_data.ax - imu_data.acc_offset_x) / 16384.0f; 
     float accZ_g = ((float)imu_data.az - imu_data.acc_offset_z) / 16384.0f;
     float accel_angle = atan2f(accX_g, accZ_g) * 57.2958f; 
     
-    angle = alpha * (angle + gyro_rate * dt) + (1.0f - alpha) * accel_angle;
+    angle = alpha * (angle + gyro_rate * dt) + (1.0f - alpha) * accel_angle; // Complementary Filter
+    // angle = Kalman_GetAngle(accel_angle, gyro_rate, dt); // Kalman Filter, checks every ms to either trust on Gyroscope or Accelerometer
 
     // Safety Fall-over Stop
-    if (fabsf(angle) > 50.0f) {
+    if (fabsf(angle) > 45.0f) {
       Control_Motors(0);
       integral = 0;
       return;
@@ -269,8 +281,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
     } else {
         integral = 0; 
     }
-    if (integral > 150.0f) integral = 150.0f;
-    if (integral < -150.0f) integral = -150.0f;
+    if (integral > 100.0f) integral = 100.0f;
+    if (integral < -100.0f) integral = -100.0f;
 
     // 3. Smoothed Derivative
     float raw_derivative = (error - last_error) / dt;
@@ -280,7 +292,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
     
     last_error = error;
     last_derivative = filtered_derivative;
-
     Control_Motors(pid_output);
 
     // char buffer[64];
@@ -290,6 +301,36 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim) {
   }
 }
 
+// float Kalman_GetAngle(float newAngle, float newRate, float dt) {
+//     // Step 1: Predict
+//     float rate = newRate - k_bias;
+//     k_angle += dt * rate;
+
+//     P[0][0] += dt * (dt * P[1][1] - P[0][1] - P[1][0] + Q_angle);
+//     P[0][1] -= dt * P[1][1];
+//     P[1][0] -= dt * P[1][1];
+//     P[1][1] += Q_bias * dt;
+
+//     // Step 2: Update (Correction)
+//     float S = P[0][0] + R_measure;
+//     float K[2]; // Kalman gain
+//     K[0] = P[0][0] / S;
+//     K[1] = P[1][0] / S;
+
+//     float y = newAngle - k_angle; // Angle difference
+//     k_angle += K[0] * y;
+//     k_bias  += K[1] * y;
+
+//     float P00_temp = P[0][0];
+//     float P01_temp = P[0][1];
+
+//     P[0][0] -= K[0] * P00_temp;
+//     P[0][1] -= K[0] * P01_temp;
+//     P[1][0] -= K[1] * P00_temp;
+//     P[1][1] -= K[1] * P01_temp;
+
+//     return k_angle;
+// }
 
 /* USER CODE END 0 */
 
@@ -813,4 +854,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
